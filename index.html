@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    <table style="width:100%;max-width:880px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
       <tr style="padding:0px">
         <td style="padding:0px">
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
@@ -22,23 +22,16 @@
                 <p class="name" style="text-align: center;">
                   Zh1hao Wang
                 </p>
-                <p>I'm a first-year master student at College of Engineering (<a href="https://en.coe.pku.edu.cn/">CoE</a>), Peking University in Beijing, advised by professor <a href="https://ieeexplore.ieee.org/author/37278401500"> Junzhi Yu</a> (IEEE Fellow).
-                </p>
-                <p>  
-                  I'm also a research intern at Institute for AI Research (<a href="https://air.tsinghua.edu.cn/en/index.htm">AIR</a>), Tsinghua University, advised by professor <a href="https://zhanxianyuan.xyz/">Xianyuan Zhan</a>.
-                </p>
-                <p>
-                  Before that, I received my B.Eng. degree in Intelligent Automotive Engineering at Harbin Institute of Technology (<a href="http://en.hit.edu.cn/">HIT</a>).
-                </p>
-                <p>
-                  My research insterest is within Embodied Intelligence, and can be summarized with these keywords: <span class="highlight">Universal Action</span>, <span class="highlight">Cross-embodiement</span>, <span class="highlight">Behavior Generation</span>, etc.
-                </p>
+                <p>I am currently a first-year master's student at the College of Engineering (<a href="https://en.coe.pku.edu.cn/">CoE</a>), Peking University, advised by Professor <a href="https://ieeexplore.ieee.org/author/37278401500">Junzhi Yu</a> (IEEE Fellow).</p>
+                <p>I am also a research intern at the Institute for AI Research (<a href="https://air.tsinghua.edu.cn/en/index.htm">AIR</a>), Tsinghua University, advised by Professor <a href="https://zhanxianyuan.xyz/">Xianyuan Zhan</a>.</p>
+                <p>Prior to that, I earned my B.Eng. degree in Intelligent Automotive Engineering from the Harbin Institute of Technology (<a href="http://en.hit.edu.cn/">HIT</a>).</p>
+                <p>My research interests focus on Embodied Intelligence, including VLA, VLM, Embodied Agents, and related areas.</p>
                 <p style="text-align:center">
                   <a href="mailto:zh1haowang@stu.pku.edu.cn">Email</a> &nbsp;/&nbsp;
-                  <a href="data/JonBarron-CV.pdf">CV</a> &nbsp;/&nbsp;
-                  <a href="https://scholar.google.com">Scholar</a> &nbsp;/&nbsp;
+                  <a href="images/cv.pdf">CV</a> &nbsp;/&nbsp;
+                  <a href="https://scholar.google.com/citations?hl=zh-CN&user=R-DSH0kAAAAJ">Scholar</a> &nbsp;/&nbsp;
                   <a href="https://github.com/255isWhite">Github</a> &nbsp;/&nbsp;
-                  <a href="https://twitter.com/jon_barron">Wechat</a> &nbsp;/&nbsp;
+                  <a href="images/wechat.JPG">Wechat</a> &nbsp;/&nbsp;
                   <a href="https://www.zhihu.com/people/xuan-xu-71-21">Zhihu</a>
                 </p>
               </td>
@@ -53,7 +46,7 @@
               <h2>News</h2>
               <p>
                 <ul>
-                <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">09/2024: I'm waiting for bringing exciting news.
+                <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">01/2025: Our paper <b>Robo_MUTUAL</b> has been accepted by <b>ICRA 2025</b>!</li>
                 </ul>
               </p>
             </td>
@@ -64,14 +57,70 @@
               <td style="padding:20px;width:100%;vertical-align:middle">
                 <h2>Research</h2>
                 <p>
-                  During years of trials and errors, I am actually a weapon master (proficient at using various sensors, including Monocular camera, Stereo camera, RGB-D camera, Mechanical/Solid-state LiDAR, IMU)
-                  with strong hands-on skills about robotic platforms debugging and maintenance.
+                  My long-term goal is building the <i>bridge</i> between AI and the physical world.
                 </p>
               </td>
             </tr>
           </tbody></table>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 
+          <tr onmouseout="mutual_stop()" onmouseover="mutual_start()">
+            <td style="padding:16px;width:20%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='mutual_image'>
+                  <video width="160" height="160" muted autoplay loop style="object-fit: cover;">
+                      <source src="images/robo_mutual/logo.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <script>
+                    // 获取视频元素
+                    const video = document.querySelector('#mutual_image video');
+                
+                    // 设置播放速度为三倍速
+                    video.playbackRate = 4;
+                </script>
+              </div>
+              <img src='images/robo_mutual/logo.png' width="160">
+              </div>
+              <script type="text/javascript">
+                function mutual_start() {
+                  document.getElementById('mutual_image').style.opacity = "1";
+                }
+      
+                function mutual_stop() {
+                  document.getElementById('mutual_image').style.opacity = "0";
+                }
+                mutual_stop()
+              </script>
+            </td>
+            <td style="padding:8px;width:80%;vertical-align:middle">
+              <a href="https://zh1hao.wang/Robo_MUTUAL/">
+            <span class="papertitle">Robo-MUTUAL: Robotic Multimodal Task Specification via Unimodal Learning</span>
+              </a>
+              <br>
+              <a href="https://scholar.google.com/citations?user=TRLwpiUAAAAJ&hl=zh-CN">Jianxiong Li</a>*,
+              <strong>Zh1hao Wang</strong>*,
+              <a href="https://scholar.google.com/citations?user=3j5AHFsAAAAJ&hl=zh-CN">Jinliang Zheng</a>*,
+              <a href="https://openreview.net/profile?id=~Xiaoai_Zhou1">Xiaoai Zhou</a>,
+              <a href="https://openreview.net/profile?id=~Guanming_Wang1">Guanming Wang</a>,
+              <a href="https://songguanglu.github.io/">Guanglu Song</a>
+              <a href="https://liuyu.us/">Yu Liu</a>
+              <a href="https://air.tsinghua.edu.cn/en/info/1046/1194.htm">Jingjing Liu</a>
+              <a href="https://air.tsinghua.edu.cn/en/info/1046/1188.htm">Ya-Qin Zhang</a>
+              <a href="https://scholar.google.com/citations?user=Gudfky4AAAAJ&hl=zh-CN">Junzhi Yu</a>
+              <a href="https://zhanxianyuan.xyz/">Xianyuan Zhan</a>
+              <br>
+              <em>ICRA</em>, 2025
+              <br>
+              <a href="https://zh1hao.wang/Robo_MUTUAL/">project page</a>
+              /
+              <a href="https://arxiv.org/abs/2410.01529">arXiv</a>
+              <p></p>
+              <p>
+              An approach for training a <u>multimodal</u> robotic policy via only <u>unimodal</u> datasets.
+              </p>
+            </td>
+          </tr>
 
 
           <table width="100%" align="center" border="0" cellpadding="20"><tbody>
