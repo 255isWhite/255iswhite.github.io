@@ -56,6 +56,7 @@
               <p>
                 <ul>
                 <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">01/2025: Our paper <b>Robo_MUTUAL</b> has been accepted by <b>ICRA 2025</b>!</li>
+                <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">02/2025: Our paper <b>UniAct</b> has been accepted by <b>CVPR 2025</b>!</li>
                 </ul>
               </p>
             </td>
@@ -72,6 +73,54 @@
             </tr>
           </tbody></table>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+          <tr onmouseout="uniact_stop()" onmouseover="uniact_start()">
+            <td style="padding:16px;width:20%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='uniact_image'>
+                <img src="images/uniact/logo.gif" width="160" height="160" style="object-fit: cover;">
+                <script type="text/javascript">
+                    function uniact_start() {
+                        document.getElementById('uniact_image').style.opacity = "1";
+                    }
+                
+                    function uniact_stop() {
+                        document.getElementById('uniact_image').style.opacity = "0";
+                    }
+                    uniact_stop()
+                </script>
+                </div>
+                <img src='images/uniact/logo.png' width="160">
+              </div>
+            </td>
+            <td style="padding:8px;width:80%;vertical-align:middle">
+              <a href="https://2toinf.github.io/UniAct/">
+            <span class="papertitle">UniAct: Universal Actions for Enhanced Embodied Foundation Models</span>
+              </a>
+              <br>
+              <a href="https://scholar.google.com/citations?user=3j5AHFsAAAAJ&hl=zh-CN">Jinliang Zheng</a>*, 
+              <a href="https://scholar.google.com/citations?user=TRLwpiUAAAAJ&hl=zh-CN">Jianxiong Li</a>*, 
+              <a href="https://openreview.net/profile?id=~Dongxiu_Liu2">Dongxiu Liu</a>*, 
+              <a href="https://scholar.google.com/citations?user=mHXjEbQAAAAJ&hl=zh-CN">Yinan Zheng</a>, 
+              <strong>Zh1hao Wang</strong>, 
+              <a href="https://teacher.bupt.edu.cn/ouzhonghong/en/index.htm">Zhonghong Ou</a>, 
+              <a href="https://liuyu.us/">Yu Liu</a>, 
+              <a href="https://air.tsinghua.edu.cn/en/info/1046/1194.htm">Jingjing Liu</a>, 
+              <a href="https://air.tsinghua.edu.cn/en/info/1046/1188.htm">Ya-Qin Zhang</a>, 
+              <a href="https://zhanxianyuan.xyz/">Xianyuan Zhan</a>
+              <br>
+              <em>CVPR</em>, 2025
+              <br>
+              <a href="https://2toinf.github.io/UniAct/">project page</a>
+              /
+              <a href="https://arxiv.org/abs/2501.10105">arXiv</a>
+              <p></p>
+              <p>
+              A new embodied foundation modeling framework operating in the <u>Universal Action Space</u>.
+              </p>
+            </td>
+          </tr>
+
 
           <tr onmouseout="mutual_stop()" onmouseover="mutual_start()">
             <td style="padding:16px;width:20%;vertical-align:middle">
@@ -129,53 +178,6 @@
               <p></p>
               <p>
               An approach for training a <u>multimodal</u> robotic policy via only <u>unimodal</u> datasets.
-              </p>
-            </td>
-          </tr>
-
-          <tr onmouseout="uniact_stop()" onmouseover="uniact_start()">
-            <td style="padding:16px;width:20%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='uniact_image'>
-                <img src="images/uniact/logo.gif" width="160" height="160" style="object-fit: cover;">
-                <script type="text/javascript">
-                    function uniact_start() {
-                        document.getElementById('uniact_image').style.opacity = "1";
-                    }
-                
-                    function uniact_stop() {
-                        document.getElementById('uniact_image').style.opacity = "0";
-                    }
-                    uniact_stop()
-                </script>
-                </div>
-                <img src='images/uniact/logo.png' width="160">
-              </div>
-            </td>
-            <td style="padding:8px;width:80%;vertical-align:middle">
-              <a href="https://2toinf.github.io/UniAct/">
-            <span class="papertitle">UniAct: Universal Actions for Enhanced Embodied Foundation Models</span>
-              </a>
-              <br>
-              <a href="https://scholar.google.com/citations?user=3j5AHFsAAAAJ&hl=zh-CN">Jinliang Zheng</a>*, 
-              <a href="https://scholar.google.com/citations?user=TRLwpiUAAAAJ&hl=zh-CN">Jianxiong Li</a>*, 
-              <a href="https://openreview.net/profile?id=~Dongxiu_Liu2">Dongxiu Liu</a>*, 
-              <a href="https://scholar.google.com/citations?user=mHXjEbQAAAAJ&hl=zh-CN">Yinan Zheng</a>, 
-              <strong>Zh1hao Wang</strong>, 
-              <a href="https://teacher.bupt.edu.cn/ouzhonghong/en/index.htm">Zhonghong Ou</a>, 
-              <a href="https://liuyu.us/">Yu Liu</a>, 
-              <a href="https://air.tsinghua.edu.cn/en/info/1046/1194.htm">Jingjing Liu</a>, 
-              <a href="https://air.tsinghua.edu.cn/en/info/1046/1188.htm">Ya-Qin Zhang</a>, 
-              <a href="https://zhanxianyuan.xyz/">Xianyuan Zhan</a>
-              <br>
-              <em>CVPR</em>, 2025
-              <br>
-              <a href="https://2toinf.github.io/UniAct/">project page</a>
-              /
-              <a href="https://arxiv.org/abs/2501.10105">arXiv</a>
-              <p></p>
-              <p>
-              A new embodied foundation modeling framework operating in the <u>Universal Action Space</u>.
               </p>
             </td>
           </tr>
