@@ -55,7 +55,8 @@
               <h2>News</h2>
               <p>
                 <ul>
-                  <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">02/2025: Our paper <b>LBP (Latent space Backward Planning)</b> has been accepted by <b>ICML 2025</b>!</li>
+                  <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">05/2025: Our paper <b>LBP (Latent space Backward Planning)</b> has been accepted by <b>ICML 2025</b>!</li>
+                  <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">04/2025: Our paper <b>Novel ViDAR with RL-based Active SLAM</b> has been accepted by <b>TII 2025</b>!</li>
                   <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">02/2025: Our paper <b>UniAct</b> has been accepted by <b>CVPR 2025</b>!</li>
                   <li style="list-style-position:inside;margin:0;padding:0;text-align:left;">01/2025: Our paper <b>Robo_MUTUAL</b> has been accepted by <b>ICRA 2025</b>!</li>
                 </ul>
@@ -77,7 +78,7 @@
 
             <tr onmouseout="lbp_stop()" onmouseover="lbp_start()">
               <td style="padding:16px;width:20%;vertical-align:middle">
-                <div class="one">
+                <div class="one" id='lbp'>
                   <div class="two" id='lbp_image'>
                     <video width="160" height="160" muted autoplay loop style="object-fit: cover;">
                         <source src="images/lbp/logo.mp4" type="video/mp4">
@@ -85,10 +86,10 @@
                     </video>
                     <script>
                       // 获取视频元素
-                      const video = document.querySelector('#lbp_image video');
+                      const video_lbp = document.querySelector('#lbp video');
                   
                       // 设置播放速度为十倍速
-                      video.playbackRate = 10;
+                      video_lbp.playbackRate = 10;
                     </script>
                 </div>
                 <img src='images/lbp/logo.jpg' width="160">
@@ -132,6 +133,63 @@
                 </p>
               </td>
             </tr>
+
+          <tr onmouseout="vidar_stop()" onmouseover="vidar_start()">
+            <td style="padding:16px;width:20%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='vidar_image'>
+                  <video width="160" height="160" muted autoplay loop style="object-fit: cover;">
+                      <source src="images/vidar/logo.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <script>
+                    // 获取视频元素
+                    const video_vidar = document.querySelector('#vidar_image video');
+
+                    // 设置播放速度为三倍速
+                    video_vidar.playbackRate = 1.5;
+
+                </script>
+              </div>
+              <img src='images/vidar/logo.png' width="160">
+              </div>
+                <script type="text/javascript">
+                  function vidar_start() {
+                      document.getElementById('vidar_image').style.opacity = "1";
+                  }
+
+                  function vidar_stop() {
+                      document.getElementById('vidar_image').style.opacity = "0";
+                  }
+                  vidar_stop()
+              </script>
+            </td>
+            <td style="padding:8px;width:80%;vertical-align:middle">
+              <a href="https://ieeexplore.ieee.org/document/11006866">
+            <span class="papertitle">A Novel ViDAR Device With Visual Inertial Encoder Odometry and Reinforcement Learning-Based Active SLAM Method</span>
+              </a>
+              <br>
+              <a href="https://ieeexplore.ieee.org/author/37089550574">Zhanhua Xin</a>*, 
+              <strong>Zh1hao Wang</strong>, 
+              <a href="https://ieeexplore.ieee.org/author/37088400646">Shenghao Zhang</a>, 
+              <a href="https://ieeexplore.ieee.org/author/37088401669">Wanchao Chi</a>, 
+              <a href="https://scholar.google.com/citations?user=dQc4qhsAAAAJ&hl=zh-CN">Yan Meng</a>, 
+              <a href="https://scholar.google.com.hk/citations?user=Rucrm6EAAAAJ&hl=zh-CN">Shihan Kong</a>, 
+              <a href="https://ieeexplore.ieee.org/author/395377228084533">Yan Xiong</a>, 
+              <a href="https://ieeexplore.ieee.org/author/37088689969">Chong Zhang</a>, 
+              <a href="https://ieeexplore.ieee.org/author/37086560116">Yuzhen Liu</a>, 
+              <a href="https://scholar.google.com/citations?user=Gudfky4AAAAJ&hl=zh-CN">Junzhi Yu</a>
+              <br>
+              <em>TII, IEEE Transactions on Industrial Informatics</em>, 2025
+              <br>
+              <a href="https://ieeexplore.ieee.org/document/11006866">IEEE Xplore page</a>
+              <p></p>
+              <p>
+              A novel <u>ViDAR</u> device with <u>reinforcement learning-based active SLAM</u> method.
+              </p>
+            </td>
+          </tr>
+
 
           <tr onmouseout="uniact_stop()" onmouseover="uniact_start()">
             <td style="padding:16px;width:20%;vertical-align:middle">
@@ -185,7 +243,7 @@
 
           <tr onmouseout="mutual_stop()" onmouseover="mutual_start()">
             <td style="padding:16px;width:20%;vertical-align:middle">
-              <div class="one">
+              <div class="one" id='mutual'>
                 <div class="two" id='mutual_image'>
                   <video width="160" height="160" muted autoplay loop style="object-fit: cover;">
                       <source src="images/robo_mutual/logo.mp4" type="video/mp4">
@@ -193,10 +251,10 @@
                   </video>
                   <script>
                     // 获取视频元素
-                    const video = document.querySelector('#mutual_image video');
+                    const video_mutual = document.querySelector('#mutual video');
                 
                     // 设置播放速度为三倍速
-                    video.playbackRate = 10;
+                    video_mutual.playbackRate = 10;
                     
                 </script>
               </div>
