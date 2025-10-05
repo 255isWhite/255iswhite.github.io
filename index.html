@@ -10,6 +10,7 @@
 
   gtag('config', 'G-3Y11HDNJTQ');
 </script>
+<script src="utils.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>Zhihao Wang</title>
@@ -76,63 +77,103 @@
           </tbody></table>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 
-            <tr onmouseout="lbp_stop()" onmouseover="lbp_start()">
-              <td style="padding:16px;width:20%;vertical-align:middle">
-                <div class="one" id='lbp'>
-                  <div class="two" id='lbp_image'>
-                    <video width="160" height="160" muted autoplay loop style="object-fit: cover;">
-                        <source src="images/lbp/logo.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <script>
-                      // 获取视频元素
-                      const video_lbp = document.querySelector('#lbp video');
-                  
-                      // 设置播放速度为十倍速
-                      video_lbp.playbackRate = 10;
-                    </script>
-                </div>
-                <img src='images/lbp/logo.jpg' width="160">
-                </div>
-                <script type="text/javascript">
-                  function lbp_start() {
-                      document.getElementById('lbp_image').style.opacity = "1";
-                  }
-              
-                  function lbp_stop() {
-                      document.getElementById('lbp_image').style.opacity = "0";
-                  }
-                  lbp_stop()
-              </script>
-              </td>
-              <td style="padding:8px;width:80%;vertical-align:middle">
-                <a href="https://2toinf.github.io/UniAct/">
-              <span class="papertitle">Efficient Robotic Policy Learning via Latent Space Backward Planning</span>
-                </a>
-                <br>
-                <a href="https://openreview.net/profile?id=~Dongxiu_Liu2">Dongxiu Liu</a>*, 
-                <a href="https://t6-thu.github.io/">Haoyi Niu</a>*, 
-                <strong>Zh1hao Wang</strong>,
-                <a href="https://scholar.google.com/citations?user=3j5AHFsAAAAJ&hl=zh-CN">Jinliang Zheng</a>,
-                <a href="https://scholar.google.com/citations?user=mHXjEbQAAAAJ&hl=zh-CN">Yinan Zheng</a>,
-                <a href="https://teacher.bupt.edu.cn/ouzhonghong/en/index.htm">Zhonghong Ou</a>, 
-                <a href="https://scholar.google.com/citations?user=OD-QFQQAAAAJ&hl=en">Jianming HU</a>,
-                <a href="https://scholar.google.com/citations?user=TRLwpiUAAAAJ&hl=zh-CN">Jianxiong Li</a>,
-                <a href="https://zhanxianyuan.xyz/">Xianyuan Zhan</a>
-                <br>
-                <em>ICML</em>, 2025
-                <br>
-                <em>ICLR Workshop on Robot Learning</em>, 2025
-                <br>
-                <a href="https://lbp-authors.github.io/">project page</a>
-                /
-                <a href="https://openreview.net/forum?id=BDBnw6L66T">OpenReview</a>
-                <p></p>
-                <p>
-                A lightweight visuomotor policy controls robots with <u>latent</u>, <u>backward</u>, <u>recursive</u> subgoals.
-                </p>
-              </td>
-            </tr>
+         <tr onmouseout="agent_stop()" onmouseover="agent_start()">
+            <td style="padding:16px;width:20%;vertical-align:middle">
+              <div class="one" id='agent'>
+                <div class="two" id='agent_image'>
+                  <video width="160" height="160" muted autoplay loop style="object-fit: cover;">
+                      <source src="images/agent/logo.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <script>
+                    // 获取视频元素
+                    const video_agent = document.querySelector('#agent video');
+                
+                    // 设置播放速度为十倍速
+                    video_agent.playbackRate = 10;
+                  </script>
+              </div>
+              <img src='images/agent/logo.png' width="160">
+              </div>
+              <script type="text/javascript">
+                function agent_start() {
+                    document.getElementById('agent_image').style.opacity = "1";
+                }
+
+                function agent_stop() {
+                    document.getElementById('agent_image').style.opacity = "0";
+                }
+                agent_stop()
+            </script>
+            </td>
+            <td style="padding:8px;width:80%;vertical-align:middle">
+            <span class="papertitle">PhysiAgent: An Embodied Agent Framework in Physical World</span>
+              <p class="authors">me*, Jianxiong Li*, Jinliang Zheng*, Wencong Zhang, Dongxiu Liu, Yinan Zheng, Haoyi Niu, Junzhi Yu, Xianyuan Zhan</p>
+              <em>New In ML at ICML</em>, 2025
+              <br>
+              <a href="https://arxiv.org/abs/2509.24524">arXiv</a>
+              <p></p>
+              <p>
+              An autonomous scaffolding framework to seamlessly integrate VLA and VLM into real-world embodied agents.
+              </p>
+            </td>
+          </tr>
+
+          <tr onmouseout="lbp_stop()" onmouseover="lbp_start()">
+            <td style="padding:16px;width:20%;vertical-align:middle">
+              <div class="one" id='lbp'>
+                <div class="two" id='lbp_image'>
+                  <video width="160" height="160" muted autoplay loop style="object-fit: cover;">
+                      <source src="images/lbp/logo.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+                  <script>
+                    // 获取视频元素
+                    const video_lbp = document.querySelector('#lbp video');
+                
+                    // 设置播放速度为十倍速
+                    video_lbp.playbackRate = 10;
+                  </script>
+              </div>
+              <img src='images/lbp/logo.jpg' width="160">
+              </div>
+              <script type="text/javascript">
+                function lbp_start() {
+                    document.getElementById('lbp_image').style.opacity = "1";
+                }
+            
+                function lbp_stop() {
+                    document.getElementById('lbp_image').style.opacity = "0";
+                }
+                lbp_stop()
+            </script>
+            </td>
+            <td style="padding:8px;width:80%;vertical-align:middle">
+            <span class="papertitle">Efficient Robotic Policy Learning via Latent Space Backward Planning</span>
+              <br>
+              <a href="https://openreview.net/profile?id=~Dongxiu_Liu2">Dongxiu Liu</a>*, 
+              <a href="https://t6-thu.github.io/">Haoyi Niu</a>*, 
+              <strong>Zh1hao Wang</strong>,
+              <a href="https://scholar.google.com/citations?user=3j5AHFsAAAAJ&hl=zh-CN">Jinliang Zheng</a>,
+              <a href="https://scholar.google.com/citations?user=mHXjEbQAAAAJ&hl=zh-CN">Yinan Zheng</a>,
+              <a href="https://teacher.bupt.edu.cn/ouzhonghong/en/index.htm">Zhonghong Ou</a>, 
+              <a href="https://scholar.google.com/citations?user=OD-QFQQAAAAJ&hl=en">Jianming HU</a>,
+              <a href="https://scholar.google.com/citations?user=TRLwpiUAAAAJ&hl=zh-CN">Jianxiong Li</a>,
+              <a href="https://zhanxianyuan.xyz/">Xianyuan Zhan</a>
+              <br>
+              <em>ICML</em>, 2025
+              <br>
+              <em>ICLR Workshop on Robot Learning</em>, 2025
+              <br>
+              <a href="https://lbp-authors.github.io/">project page</a>
+              /
+              <a href="https://arxiv.org/abs/2505.06861">arXiv</a>
+              <p></p>
+              <p>
+              A lightweight visuomotor policy controls robots with <u>latent</u>, <u>backward</u>, <u>recursive</u> subgoals.
+              </p>
+            </td>
+          </tr>
 
           <tr onmouseout="vidar_stop()" onmouseover="vidar_start()">
             <td style="padding:16px;width:20%;vertical-align:middle">
@@ -165,9 +206,7 @@
               </script>
             </td>
             <td style="padding:8px;width:80%;vertical-align:middle">
-              <a href="https://ieeexplore.ieee.org/document/11006866">
             <span class="papertitle">A Novel ViDAR Device With Visual Inertial Encoder Odometry and Reinforcement Learning-Based Active SLAM Method</span>
-              </a>
               <br>
               <a href="https://ieeexplore.ieee.org/author/37089550574">Zhanhua Xin</a>, 
               <strong>Zh1hao Wang</strong>, 
@@ -182,14 +221,13 @@
               <br>
               <em>TII, IEEE Transactions on Industrial Informatics</em>, 2025
               <br>
-              <a href="https://ieeexplore.ieee.org/document/11006866">IEEE Xplore page</a>
+              <a href="https://arxiv.org/abs/2506.13100">arXiv</a>
               <p></p>
               <p>
               A novel <u>ViDAR</u> device with <u>reinforcement learning-based active SLAM</u> method.
               </p>
             </td>
           </tr>
-
 
           <tr onmouseout="uniact_stop()" onmouseover="uniact_start()">
             <td style="padding:16px;width:20%;vertical-align:middle">
@@ -211,9 +249,7 @@
               </div>
             </td>
             <td style="padding:8px;width:80%;vertical-align:middle">
-              <a href="https://2toinf.github.io/UniAct/">
             <span class="papertitle">UniAct: Universal Actions for Enhanced Embodied Foundation Models</span>
-              </a>
               <br>
               <a href="https://scholar.google.com/citations?user=3j5AHFsAAAAJ&hl=zh-CN">Jinliang Zheng</a>*, 
               <a href="https://scholar.google.com/citations?user=TRLwpiUAAAAJ&hl=zh-CN">Jianxiong Li</a>*, 
@@ -239,7 +275,6 @@
               </p>
             </td>
           </tr>
-
 
           <tr onmouseout="mutual_stop()" onmouseover="mutual_start()">
             <td style="padding:16px;width:20%;vertical-align:middle">
@@ -272,9 +307,7 @@
               </script>
             </td>
             <td style="padding:8px;width:80%;vertical-align:middle">
-              <a href="https://zh1hao.wang/Robo_MUTUAL/">
             <span class="papertitle">Robo-MUTUAL: Robotic Multimodal Task Specification via Unimodal Learning</span>
-              </a>
               <br>
               <a href="https://scholar.google.com/citations?user=TRLwpiUAAAAJ&hl=zh-CN">Jianxiong Li</a>*,
               <strong>Zh1hao Wang</strong>*,
