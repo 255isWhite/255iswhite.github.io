@@ -27,7 +27,7 @@ const authorLinks = {
   "Guanglu Song": "https://songguanglu.github.io/",
   "Yu Liu": "https://liuyu.us/",
   "Zhonghong Ou": "https://teacher.bupt.edu.cn/ouzhonghong/en/index.htm",
-  "Jianming HU": "https://scholar.google.com/citations?user=OD-QFQQAAAAJ&hl=en",
+  "Jianming Hu": "https://scholar.google.com/citations?user=OD-QFQQAAAAJ&hl=en",
 };
 
 // 自动替换逻辑
