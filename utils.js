@@ -1,5 +1,4 @@
 // js/authors.js
-
 // 作者链接表（只维护人名 -> 链接）
 const authorLinks = {
   "Jingjing Liu": "https://air.tsinghua.edu.cn/en/info/1046/1194.htm",
@@ -13,6 +12,9 @@ const authorLinks = {
   "Guanming Wang": "https://openreview.net/profile?id=~Guanming_Wang1",
   "Xiaoai Zhou": "https://openreview.net/profile?id=~Xiaoai_Zhou1",
   "Wencong Zhang": "https://openreview.net/profile?id=~Wencong_Zhang2",
+  "Xirui Kang": "https://scholar.google.com/citations?user=X9qKxrQAAAAJ&hl=zh-CN",
+  "Jiayin Zou": "https://openreview.net/profile?id=~Jiayin_Zou1",
+  "Yuchun Feng": "https://github.com/CathyF9600",
 
   "Junzhi Yu": "https://scholar.google.com/citations?user=Gudfky4AAAAJ&hl=zh-CN",
   "Zhanhua Xin": "https://ieeexplore.ieee.org/author/37089550574",
@@ -28,6 +30,10 @@ const authorLinks = {
   "Yu Liu": "https://liuyu.us/",
   "Zhonghong Ou": "https://teacher.bupt.edu.cn/ouzhonghong/en/index.htm",
   "Jianming Hu": "https://scholar.google.com/citations?user=OD-QFQQAAAAJ&hl=en",
+  "Yilun Chen": "https://yilunchen.com/about/",
+  "Jia Zeng": "https://zeng-jia.github.io/",
+  "Tai Wang": "https://tai-wang.github.io/",
+  "Jiangmiao Pang": "https://oceanpang.github.io/",
 };
 
 // 自动替换逻辑
