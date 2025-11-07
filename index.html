@@ -169,7 +169,7 @@
       .thumb video { width: 100%; height: 100%; object-fit: cover; }
 
       .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0 8px; }
-      .tag { font: 600 12px/1 JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace; padding: 4px 8px; border-radius: 8px; background: var(--chip-bg); color: var(--chip-text); border: 1px dashed var(--border); }
+      .tag { font: 600 12px/1.5 JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace; padding: 4px 8px; border-radius: 8px; background: var(--chip-bg); color: var(--chip-text); border: 1px dashed var(--border); }
       .papertitle { font-size: 18px; font-weight: 700; margin: 0 0 6px; }
       .authors { margin: 0 0 6px; line-height: 1.4; }
       .links-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 6px 0 2px; }
@@ -229,9 +229,15 @@
         .links { justify-content: center; }
         .portrait { max-width: 320px; margin: 0 auto; }
       }
-      @media (max-width: 720px) {
+      /* @media (max-width: 720px) {
         .project { grid-template-columns: 1fr; }
         .thumb { aspect-ratio: 16 / 9; }
+        .grid-2 { grid-template-columns: 1fr; }
+      }*/
+      @media (max-width: 720px) {
+        .project { grid-template-columns: 1fr; }
+        /* .thumb { aspect-ratio: 16 / 9; } <-- 删除或注释掉这行 */
+        .thumb img { height: auto; }          /* <-- 添加这行，让图片自动高度 */
         .grid-2 { grid-template-columns: 1fr; }
       }
 
@@ -284,7 +290,7 @@
           <p class="roles">RL · VLA · Embodied Agents.</p>
 
           <div class="aff">
-            <p>I am currently a second-year master's student at the School of Mechanics and Engineering Science, Peking University, advised by Professor <a href="https://ieeexplore.ieee.org/author/37278401500" target="_blank" rel="noopener">Junzhi Yu</a> (IEEE Fellow).</p>
+            <p>I am currently a second-year master's student at the School of Mechanics and Engineering Science, Peking University, advised by Professor <a href="https://ieeexplore.ieee.org/author/37278401500" target="_blank" rel="noopener">Junzhi Yu</a>.</p>
             <p>I am also a research intern at the Institute for AI Research (<a href="https://air.tsinghua.edu.cn/en/index.htm" target="_blank" rel="noopener">AIR</a>), Tsinghua University, advised by Professor <a href="https://zhanxianyuan.xyz/" target="_blank" rel="noopener">Xianyuan Zhan</a>.</p>
             <p>Prior to that, I earned my B.Eng. degree in Intelligent Automotive Engineering from the Harbin Institute of Technology (<a href="http://en.hit.edu.cn/" target="_blank" rel="noopener">HIT</a>).</p>
             <p>My research interests focus on Embodied Intelligence, including VLA, VLM, Embodied Agents, and related areas.</p>
@@ -310,7 +316,7 @@
       <section id="news">
         <h2>News</h2>
         <ul class="news">
-          <li>05/2025: X-VLA won the <strong>🏆 Championship</strong> at <strong>AgiBot World Challenge @ IROS 2025</strong>!</li>
+          <li>10/2025: X-VLA won the <strong>🏆 Championship</strong> at <strong>AgiBot World Challenge @ IROS 2025</strong>!</li>
           <li>05/2025: Our paper <strong>LBP (Latent space Backward Planning)</strong> has been accepted by <strong>ICML 2025</strong>!</li>
           <li>04/2025: Our paper <strong>Novel ViDAR with RL-based Active SLAM</strong> has been accepted by <strong>TII 2025</strong>!</li>
           <li>02/2025: Our paper <strong>UniAct</strong> has been accepted by <strong>CVPR 2025</strong>!</li>
@@ -346,7 +352,7 @@
                 <a href="https://thu-air-dream.github.io/X-VLA/" target="_blank" rel="noopener">project page</a>
                 <a href="https://arxiv.org/pdf/2510.10274" target="_blank" rel="noopener">arXiv</a>
               </div>
-              <p class="desc">A highly scalable cross-embodiment VLA model that achieves remarkable performance with a tiny model size.</p>
+              <p class="desc">A highly scalable <b>cross-embodiment</b> VLA model that achieves remarkable performance with a tiny model size.</p>
             </div>
           </article>
 
@@ -369,7 +375,7 @@
               <div class="links-row">
                 <a href="https://arxiv.org/abs/2509.24524" target="_blank" rel="noopener">arXiv</a>
               </div>
-              <p class="desc">An autonomous scaffolding framework to seamlessly integrate VLA and VLM into real-world embodied agents.</p>
+              <p class="desc">An autonomous scaffolding framework to seamlessly integrate VLA and VLM into <b>real-world embodied agents</b>.</p>
             </div>
           </article>
 
@@ -404,7 +410,7 @@
                 <a href="https://lbp-authors.github.io/" target="_blank" rel="noopener">project page</a>
                 <a href="https://arxiv.org/abs/2505.06861" target="_blank" rel="noopener">arXiv</a>
               </div>
-              <p class="desc">A lightweight visuomotor policy controls robots with <u>latent</u>, <u>backward</u>, <u>recursive</u> subgoals.</p>
+              <p class="desc">A lightweight visuomotor policy controls robots with <b>latent</b>, <b>backward</b>, <b>recursive</b> subgoals.</p>
             </div>
           </article>
 
@@ -438,7 +444,7 @@
               <div class="links-row">
                 <a href="https://arxiv.org/abs/2506.13100" target="_blank" rel="noopener">arXiv</a>
               </div>
-              <p class="desc">A novel <u>ViDAR</u> device with <u>reinforcement learning-based active SLAM</u> method.</p>
+              <p class="desc">A novel <b>ViDAR</b> device with <b>reinforcement learning-based active SLAM</b> method.</p>
             </div>
           </article>
 
@@ -472,7 +478,7 @@
                 <a href="https://2toinf.github.io/UniAct/" target="_blank" rel="noopener">project page</a>
                 <a href="https://arxiv.org/abs/2501.10105" target="_blank" rel="noopener">arXiv</a>
               </div>
-              <p class="desc">A new embodied foundation modeling framework operating in the <u>Universal Action Space</u>.</p>
+              <p class="desc">A new embodied foundation modeling framework operating in the <b>Universal Action Space</b>.</p>
             </div>
           </article>
 
@@ -509,7 +515,7 @@
                 <a href="https://zh1hao.wang/Robo_MUTUAL/" target="_blank" rel="noopener">project page</a>
                 <a href="https://arxiv.org/abs/2410.01529" target="_blank" rel="noopener">arXiv</a>
               </div>
-              <p class="desc">An approach for training a <u>multimodal</u> robotic policy via only <u>unimodal</u> datasets.</p>
+              <p class="desc">An approach for training a <b>multimodal</b> robotic policy via only <b>unimodal</b> datasets.</p>
             </div>
           </article>
         </div>
