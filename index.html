@@ -137,7 +137,45 @@
         background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--border);
         font-weight: 600;
       }
-      .portrait { aspect-ratio: 1 / 1; overflow: hidden; border-radius: 16px; box-shadow: var(--shadow); }
+      .portrait { aspect-ratio: 1 / 1; overflow: hidden; border-radius: 16px; box-shadow: var(--shadow); 
+                    /* 1. 设置相对定位，以便内部的绝对定位图片能以此为基准 */
+                  position: relative;
+                  /* 2. 确保容器能够捕获到鼠标事件 */
+                  cursor: pointer;}
+
+      /* --- 图片切换样式 --- */
+      .portrait img {
+          /* 3. 绝对定位使两张图重叠在一起 */
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover; /* 确保图片覆盖整个容器 */
+          
+          /* 4. 添加过渡效果，让切换更平滑 */
+          transition: opacity 0.4s ease-in-out; 
+      }
+
+      /* 5. 默认设置：默认图显示，悬停图隐藏 */
+      .default-image {
+          opacity: 1;
+      }
+
+      .hover-image {
+          opacity: 0;
+      }
+
+      /* 6. 鼠标悬停在 .portrait 容器上时： */
+      .portrait:hover .default-image {
+          /* 隐藏默认图 */
+          opacity: 0;
+      }
+
+      .portrait:hover .hover-image {
+          /* 显示悬停图 */
+          opacity: 1;
+      }
 
       /* ========= SECTIONS ========= */
       section { margin-top: 40px; }
@@ -308,7 +346,8 @@
         </div>
 
         <div class="portrait">
-          <img src="images/me_v3.jpg" alt="Portrait of Zh1hao Wang" />
+            <img src="images/me_v3.jpg" alt="Portrait of Zh1hao Wang" class="default-image" />
+            <img src="images/ghibli_v2.png" alt="Hover Image" class="hover-image" />
         </div>
       </section>
 
