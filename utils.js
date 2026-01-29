@@ -4,6 +4,7 @@ const authorLinks = {
   "Jingjing Liu": "https://air.tsinghua.edu.cn/en/info/1046/1194.htm",
   "Ya-Qin Zhang": "https://air.tsinghua.edu.cn/en/info/1046/1188.htm",
   "Xianyuan Zhan": "https://zhanxianyuan.xyz/",
+
   "Jianxiong Li": "https://facebear-ljx.github.io/",
   "Jinliang Zheng": "https://scholar.google.com/citations?user=3j5AHFsAAAAJ&hl=zh-CN",
   "Yinan Zheng": "https://zhengyinan-air.github.io/",
@@ -15,6 +16,10 @@ const authorLinks = {
   "Xirui Kang": "https://scholar.google.com/citations?user=X9qKxrQAAAAJ&hl=zh-CN",
   "Jiayin Zou": "https://openreview.net/profile?id=~Jiayin_Zou1",
   "Yuchun Feng": "https://github.com/CathyF9600",
+  "Ruiming Liang": "https://github.com/LRMbbj",
+  "Kexin Zheng": "https://github.com/Whiterrrrr",
+  "Tianyi Tan": "https://github.com/0ttwhy4",
+  "Liyuan Mao": "https://scholar.google.com/citations?user=Xa2pDisAAAAJ&hl=en",
 
   "Junzhi Yu": "https://scholar.google.com/citations?user=Gudfky4AAAAJ&hl=zh-CN",
   "Zhanhua Xin": "https://ieeexplore.ieee.org/author/37089550574",
@@ -34,6 +39,10 @@ const authorLinks = {
   "Jia Zeng": "https://zeng-jia.github.io/",
   "Tai Wang": "https://tai-wang.github.io/",
   "Jiangmiao Pang": "https://oceanpang.github.io/",
+  "Guang Chen": "https://openreview.net/profile?id=%7EGuang_Chen1",
+  "Hangjun Ye": "https://openreview.net/profile?id=~Hangjun_Ye1",
+  "Jinqiao Wang": "https://openreview.net/profile?id=~Jinqiao_Wang1",
+
 };
 
 // 自动替换逻辑
