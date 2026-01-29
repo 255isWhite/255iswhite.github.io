@@ -367,12 +367,24 @@
         font-size: 0.9rem;
       }
 
-      /* 移动端适配：屏幕太窄时自动换行（可选） */
+      /* 移动端适配 */
       @media (max-width: 600px) {
         .exp-item {
-          flex-direction: column;
-          align-items: flex-start;
+          flex-direction: column; /* 上下排列 */
+          align-items: flex-start; /* 左对齐 */
           gap: 10px;
+        }
+
+        /* --- 新增的核心修复代码 --- */
+        .exp-logo {
+          /* 1. 取消固定的 480px，改为自适应宽度 */
+          width: 100%; 
+          
+          /* 2. (可选) 限制最大宽度，防止 Logo 在手机上显得过大 */
+          max-width: 800px; 
+
+          /* 3. 因为变成了上下排列，Logo 靠左显示可能比居中更好看 */
+          justify-content: flex-start; 
         }
       }
 
@@ -384,6 +396,19 @@
       /* 按钮的简单的悬停效果 */
       #load-more-container:hover {
           text-decoration: underline;
+      }
+
+      .aff p {
+        display: flex;
+        align-items: flex-start; /* 让箭头始终对齐第一行 */
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+      .arrow-icon {
+        color: #2b78e4; /* 蓝色，你可以修改这个颜色代码 */
+        margin-right: 8px; /* 箭头和文字之间的间距 */
+        flex-shrink: 0; /* 防止箭头被压缩 */
+        font-weight: bold;
       }
 
     </style>
@@ -421,11 +446,24 @@
           <p class="roles">Reality · Robotics · RL</p>
 
           <div class="aff">
-            <p>I am currently conducting research at <a href="https://seed.bytedance.com/en/?view_from=homepage_tab" target="_blank" rel="noopener noreferrer">Bytedance Seed Robotics</a>.</p>
-            <p>I am a second-year master's student at School of Advanced Manufacturing and Robotics, Peking University, advised by Professor <a href="https://ieeexplore.ieee.org/author/37278401500" target="_blank" rel="noopener noreferrer">Junzhi Yu</a>.</p>
-            <p>I am also a research intern at the Institute for AI Research (<a href="https://air.tsinghua.edu.cn/en/index.htm" target="_blank" rel="noopener noreferrer">AIR</a>), Tsinghua University, advised by Professor <a href="https://zhanxianyuan.xyz/" target="_blank" rel="noopener noreferrer">Xianyuan Zhan</a>.</p>
-            <p>Prior to that, I earned my B.Eng. degree in Intelligent Automotive Engineering from the Harbin Institute of Technology (<a href="http://en.hit.edu.cn/" target="_blank" rel="noopener noreferrer">HIT</a>).</p>
-            <p>My research interests focus on Embodied Intelligence, including VLA, VLM, Embodied Agents, and related areas.</p>
+            <p>
+              <span class="arrow-icon">➤</span>
+              <span>Currently conducting research at <a href="https://seed.bytedance.com/en/?view_from=homepage_tab" target="_blank" rel="noopener noreferrer">Bytedance Seed Robotics</a>.</span>
+            </p>
+            <p>
+              <span class="arrow-icon">➤</span>
+              <span>A second-year master's student at School of Advanced Manufacturing and Robotics, Peking University, advised by Professor <a href="https://ieeexplore.ieee.org/author/37278401500" target="_blank" rel="noopener noreferrer">Junzhi Yu</a>.</span>
+            </p>
+            <p>
+              <span class="arrow-icon">➤</span>
+              <span>Also a research intern at the Institute for AI Research (<a href="https://air.tsinghua.edu.cn/en/index.htm" target="_blank" rel="noopener noreferrer">AIR</a>), Tsinghua University, advised by Professor <a href="https://zhanxianyuan.xyz/" target="_blank" rel="noopener noreferrer">Xianyuan Zhan</a>.</span>
+            </p>
+            <p>
+              <span>Prior to that, I earned my B.Eng. degree in Intelligent Automotive Engineering from the Harbin Institute of Technology (<a href="http://en.hit.edu.cn/" target="_blank" rel="noopener noreferrer">HIT</a>).</span>
+            </p>
+            <p>
+              <span>My research interests focus on Embodied Intelligence, including VLA, VLM, Embodied Agents, and related areas.</span>
+            </p>
           </div>
 
           <div class="links" aria-label="Quick links">
