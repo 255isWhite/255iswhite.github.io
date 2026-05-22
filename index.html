@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="auto">
+<html lang="en" data-theme="dark">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y11HDNJTQ"></script>
@@ -495,13 +495,9 @@
 
     <script>
       (function () {
-        const key = "theme-pref";
-        const pref = localStorage.getItem(key) || "auto";
-        const dark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const resolved = pref === "auto" ? (dark ? "dark" : "light") : pref;
         const root = document.documentElement;
-        root.setAttribute("data-theme", resolved);
-        root.dataset.themeMode = pref;
+        root.setAttribute("data-theme", "dark");
+        root.dataset.themeMode = "dark";
       })();
     </script>
   </head>
@@ -954,8 +950,8 @@
         apply(next);
       }
 
-      // 1. 初始应用：直接设为白色，不读取缓存
-      apply("light");
+      // 1. 初始应用：直接设为深色，不读取缓存
+      apply("dark");
 
       // 2. 绑定点击事件
       btn.addEventListener("click", cycleTheme);
