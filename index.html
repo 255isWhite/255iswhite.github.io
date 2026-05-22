@@ -342,73 +342,97 @@
         .grid-2--auto-left{ grid-template-columns:1fr; }
       }
 
-      /* 1. 每一行经历的容器 */
-      .exp-item {
+      /* ========= EXPERIENCE ========= */
+      .exp-list {
         display: flex;
-        align-items: center; /* 垂直居中 */
-        margin-bottom: 10px;
-        gap: 50px; /* Logo容器和文字之间的间距 */
+        flex-direction: column;
+        gap: 14px;
       }
 
-      /* 2. 关键：固定 Logo 容器的宽度 */
+      .exp-item {
+        display: grid;
+        grid-template-columns: 480px 1fr;
+        gap: 40px;
+        align-items: center;
+        padding: 16px 20px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--card);
+        transition: transform .12s ease, box-shadow .12s ease;
+      }
+      .exp-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
       .exp-logo {
-        /* 设定一个统一的宽度，比如 180px */
-        /* 无论里面的图是长是短，这个容器永远占 180px */
-        width: 480px; 
-        flex-shrink: 0; /* 防止容器被挤压 */
-        
-        /* 让内部的 Logo 在这个 180px 的空间里居中显示 */
-        /* 如果你喜欢左对齐，把 center 改为 flex-start */
         display: flex;
-        justify-content: center; 
+        justify-content: center;
         align-items: center;
       }
-
-      /* 3. 让 SVG 和 PNG 自适应这个容器 */
-      .exp-logo svg, 
+      .exp-logo svg,
       .exp-logo img {
-        width: 100%;      /* 尝试填满容器宽度 */
-        height: auto;     /* 高度自动保持比例 */
-        max-height: 100px; /* 限制最大高度，防止方形 Logo (如AIR) 变得巨大 */
+        width: 100%;
+        height: auto;
+        max-height: 100px;
         object-fit: contain;
-        display: block;   /* 消除图片底部空隙 */
+        display: block;
+      }
+      .exp-logo img.exp-logo-air {
+        width: 40%;
       }
 
-      /* 4. 右侧文字部分的样式优化 */
       .exp-details {
         display: flex;
-        flex-direction: column; /* 让标题和时间上下排列，或者改为 row 左右排列 */
-        justify-content: center;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
       }
 
       .exp-details h3 {
-        margin: 0 0 5px 0;
-        font-size: 1.1rem;
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .exp-details h3 a {
+        color: inherit;
+        font: inherit;
+        text-decoration: none;
+      }
+      .exp-details h3 a:hover {
+        color: var(--link);
+        text-decoration: underline;
       }
 
-      .exp-details .exp-time {
-        color: #666;
+      .exp-time {
+        display: block;
+        color: var(--muted);
         font-size: 0.9rem;
+        font-family: JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace;
+        line-height: 1.3;
       }
 
-      /* 移动端适配 */
-      @media (max-width: 600px) {
+      .exp-desc {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 720px) {
         .exp-item {
-          flex-direction: column; /* 上下排列 */
-          align-items: flex-start; /* 左对齐 */
-          gap: 10px;
+          grid-template-columns: 1fr;
+          gap: 14px;
         }
-
-        /* --- 新增的核心修复代码 --- */
         .exp-logo {
-          /* 1. 取消固定的 480px，改为自适应宽度 */
-          width: 100%; 
-          
-          /* 2. (可选) 限制最大宽度，防止 Logo 在手机上显得过大 */
-          max-width: 800px; 
-
-          /* 3. 因为变成了上下排列，Logo 靠左显示可能比居中更好看 */
-          justify-content: flex-start; 
+          justify-content: flex-start;
+        }
+        .exp-logo svg,
+        .exp-logo img {
+          max-width: 320px;
+          max-height: 80px;
+        }
+        .exp-logo img.exp-logo-air {
+          width: auto;
+          max-width: 140px;
         }
       }
 
@@ -433,6 +457,38 @@
         margin-right: 8px; /* 箭头和文字之间的间距 */
         flex-shrink: 0; /* 防止箭头被压缩 */
         font-weight: bold;
+      }
+
+      /* 研究兴趣关键词的艺术字效果 */
+      .keyword {
+        font-weight: 800;
+        font-size: 1.05em;
+        letter-spacing: 0.3px;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% auto;
+        animation: keyword-shine 6s linear infinite;
+      }
+      .keyword.scalable {
+        background-image: linear-gradient(90deg, #2563eb 0%, #06b6d4 40%, #10b981 60%, #2563eb 100%);
+      }
+      .keyword.reliable {
+        background-image: linear-gradient(90deg, #7c3aed 0%, #ec4899 40%, #f59e0b 60%, #7c3aed 100%);
+      }
+      [data-theme="dark"] .keyword.scalable {
+        background-image: linear-gradient(90deg, #60a5fa 0%, #22d3ee 40%, #34d399 60%, #60a5fa 100%);
+      }
+      [data-theme="dark"] .keyword.reliable {
+        background-image: linear-gradient(90deg, #a78bfa 0%, #f472b6 40%, #fbbf24 60%, #a78bfa 100%);
+      }
+      @keyframes keyword-shine {
+        0%   { background-position: 0% center; }
+        100% { background-position: 200% center; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .keyword { animation: none; }
       }
 
     </style>
@@ -476,7 +532,7 @@
             </p>
             <p>
               <span class="arrow-icon">➤</span>
-              <span>A second-year master's student at School of Advanced Manufacturing and Robotics, Peking University, advised by Professor <a href="https://ieeexplore.ieee.org/author/37278401500" target="_blank" rel="noopener noreferrer">Junzhi Yu</a>.</span>
+              <span>A second-year master's student at School of Advanced Manufacturing and Robotics, Peking University, advised by Professor <a href="https://scholar.google.com/citations?user=Gudfky4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Junzhi Yu</a>.</span>
             </p>
             <p>
               <span class="arrow-icon">➤</span>
@@ -486,7 +542,7 @@
               <span>Prior to that, I earned my B.Eng. degree in Intelligent Automotive Engineering from the Harbin Institute of Technology (<a href="http://en.hit.edu.cn/" target="_blank" rel="noopener noreferrer">HIT</a>).</span>
             </p>
             <p>
-              <span>My research interests focus on Embodied Intelligence, including VLA, VLM, Embodied Agents, and related areas.</span>
+              <span>My research interests focus on <span class="keyword reliable">Reliable</span> and <span class="keyword scalable">Scalable</span> robot learning.</span>
             </p>
           </div>
 
@@ -535,40 +591,39 @@
       <section id="experience">
         <h2>Experience</h2>
 
-        <div class="exp-item">
-          
-          <div class="exp-logo">
-            <svg class="bd-seed-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
-              <g fill="#3259ce">
-                <path d="M50 60 l0 80 l18 6 l0 -92 z" fill="#3259ce" />
-                <path d="M75 75 l0 60 l18 6 l0 -72 z" fill="#4a86f7" />
-                <path d="M100 70 l0 65 l18 6 l0 -77 z" fill="#00c4cc" />
-                <path d="M125 55 l0 95 l18 6 l0 -107 z" fill="#80e8dd" />
-                <text x="160" y="145" font-family="Arial, sans-serif" font-weight="bold" font-size="82" letter-spacing="-2">ByteDance</text>
-                <rect x="585" y="60" width="3" height="100" fill="#999" />
-                <text x="615" y="145" font-family="Arial, sans-serif" font-size="82" letter-spacing="-1">Seed</text>
-              </g>
-            </svg>
-          </div>
-
-          <div class="exp-details">
-            <h3>Robotics Multimodal Large Model Algorithm Intern</h3> <span class="exp-time">2026.01 - Present</span> </div>
-          
-        </div>
-
-        <div class="exp-item">
+        <div class="exp-list">
+          <div class="exp-item">
             <div class="exp-logo">
-              <img 
-                src="images/air_logo.png" 
-                style="width: 40%;" 
-                alt="air logo" 
-              />
+              <svg class="bd-seed-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+                <g fill="#3259ce">
+                  <path d="M50 60 l0 80 l18 6 l0 -92 z" fill="#3259ce" />
+                  <path d="M75 75 l0 60 l18 6 l0 -72 z" fill="#4a86f7" />
+                  <path d="M100 70 l0 65 l18 6 l0 -77 z" fill="#00c4cc" />
+                  <path d="M125 55 l0 95 l18 6 l0 -107 z" fill="#80e8dd" />
+                  <text x="160" y="145" font-family="Arial, sans-serif" font-weight="bold" font-size="82" letter-spacing="-2">ByteDance</text>
+                  <rect x="585" y="60" width="3" height="100" fill="#999" />
+                  <text x="615" y="145" font-family="Arial, sans-serif" font-size="82" letter-spacing="-1">Seed</text>
+                </g>
+              </svg>
             </div>
             <div class="exp-details">
-              <h3>Research Intern</h3>
-              <span class="exp-time">2024.06 - Present</span>
+              <h3><a href="https://seed.bytedance.com/en/gr_rl" target="_blank" rel="noopener noreferrer">Seed Robotics, ByteDance</a></h3>
+              <span class="exp-time">2026.01 - Present</span>
+              <p class="exp-desc">Research Intern - World models, Value models</p>
             </div>
           </div>
+
+          <div class="exp-item">
+            <div class="exp-logo">
+              <img src="images/air_logo.png" alt="AIR Tsinghua logo" class="exp-logo-air" />
+            </div>
+            <div class="exp-details">
+              <h3><a href="https://air-dream.netlify.app/" target="_blank" rel="noopener noreferrer">AIR-DREAM Lab, Tsinghua University</a></h3>
+              <span class="exp-time">2024.06 - Present</span>
+              <p class="exp-desc">Research Intern - VLA, Reinforcement Learning</p>
+            </div>
+          </div>
+        </div>
 
       </section>
 
