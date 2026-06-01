@@ -1,0 +1,356 @@
+---
+permalink: /wvm/
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y11HDNJTQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-3Y11HDNJTQ');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>wvm</title>
+    <meta name="description" content="World Value Models for Robotic Manipulation — project page." />
+    <meta name="author" content="Zhihao (Zh1hao) Wang" />
+    <link rel="shortcut icon" href="/images/favicon_pku/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/stylesheet.css" />
+    <script src="/assets/utils.js" defer></script>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://zh1hao.wang/wvm/" />
+    <meta property="og:title" content="World Value Models for Robotic Manipulation" />
+    <meta property="og:description" content="Project page for World Value Models (WVM)." />
+    <meta property="og:image" content="https://zh1hao.wang/images/wvm/logo.svg" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://zh1hao.wang/wvm/" />
+    <meta property="twitter:title" content="World Value Models for Robotic Manipulation" />
+    <meta property="twitter:description" content="Project page for World Value Models (WVM)." />
+    <meta property="twitter:image" content="https://zh1hao.wang/images/wvm/logo.svg" />
+
+    <style>
+      /* ========= THEME TOKENS (mirrors main site) ========= */
+      :root {
+        --bg: #ffffff;
+        --text: #0f172a;
+        --muted: #64748b;
+        --link: #2563eb;
+        --link-hover: #1d4ed8;
+        --card: #f8fafc;
+        --border: #e2e8f0;
+        --chip-bg: #eef2ff;
+        --chip-text: #3730a3;
+        --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        --c-wvm: #2D5BA8;
+        --c-bench: #0099E5;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0b0f19; --text:#e5e7eb; --muted:#94a3b8;
+          --link:#60a5fa; --link-hover:#93c5fd;
+          --card:#0f172a; --border:#1f2937;
+          --chip-bg:#1f2937; --chip-text:#c7d2fe;
+          --shadow: 0 8px 28px rgba(0,0,0,0.45);
+        }
+      }
+      [data-theme="light"] {
+        --bg:#ffffff; --text:#0f172a; --muted:#64748b; --link:#2563eb; --link-hover:#1d4ed8;
+        --card:#f8fafc; --border:#e2e8f0; --chip-bg:#eef2ff; --chip-text:#3730a3; --shadow:0 8px 24px rgba(15,23,42,.08);
+      }
+      [data-theme="dark"] {
+        --bg:#0b0f19; --text:#e5e7eb; --muted:#94a3b8; --link:#60a5fa; --link-hover:#93c5fd;
+        --card:#0f172a; --border:#1f2937; --chip-bg:#1f2937; --chip-text:#c7d2fe; --shadow:0 8px 28px rgba(0,0,0,.45);
+        --c-wvm:#7AA7E3; --c-bench:#38B6F0;
+      }
+
+      html, body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 16px;
+        line-height: 1.6;
+        letter-spacing: 0.1px;
+        margin: 0;
+      }
+      a { color: var(--link); text-decoration: none; }
+      a:hover { color: var(--link-hover); text-decoration: underline; }
+      img, video { display: block; max-width: 100%; height: auto; border-radius: 12px; }
+
+      .container {
+        max-width: 980px;
+        padding: 24px 20px 80px;
+        margin: 0 auto;
+      }
+
+      /* ========= TOPBAR ========= */
+      .topbar {
+        position: sticky; top: 0; z-index: 1000;
+        backdrop-filter: saturate(1.2) blur(8px);
+        background: color-mix(in oklab, var(--bg) 85%, transparent);
+        border-bottom: 1px solid var(--border);
+      }
+      .topbar-inner {
+        max-width: 980px; margin: 0 auto; padding: 10px 20px;
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 12px;
+      }
+      .brand { font-weight: 700; letter-spacing: .2px; color: var(--text); }
+      .brand:hover { text-decoration: none; color: var(--link); }
+      .topbar-right { display: inline-flex; align-items: center; gap: 10px; }
+      .theme-toggle {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 6px 10px; border-radius: 999px;
+        border: 1px solid var(--border); background: var(--card);
+        box-shadow: var(--shadow); cursor: pointer; user-select: none;
+        color: var(--text);
+      }
+      .theme-toggle .dot {
+        width: 18px; height: 18px; border-radius: 50%;
+        background: radial-gradient(circle at 60% 40%, #ffdf6d 0 30%, #f59e0b 40% 60%, transparent 61%),
+                    conic-gradient(from 0deg, #f59e0b, #fde68a, #f59e0b);
+        transition: transform .35s ease, background .25s ease;
+      }
+      [data-theme="dark"] .theme-toggle .dot {
+        background: radial-gradient(circle at 60% 40%, #cbd5e1 0 30%, #64748b 40% 60%, transparent 61%),
+                    conic-gradient(from 0deg, #94a3b8, #cbd5e1, #94a3b8);
+      }
+
+      /* ========= HEADER ========= */
+      .paper-header { padding-top: 28px; text-align: center; }
+      .paper-title {
+        font-size: clamp(26px, 3.2vw, 40px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 14px;
+        letter-spacing: -0.2px;
+      }
+      .paper-authors {
+        margin: 0 0 10px;
+        line-height: 1.55;
+        color: var(--text);
+      }
+      .paper-affil {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin: 0 0 16px;
+      }
+      .paper-meta {
+        display: flex; justify-content: center; flex-wrap: wrap;
+        gap: 8px; margin-bottom: 18px;
+      }
+      .tag {
+        font: 600 12px/1.5 JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace;
+        padding: 4px 8px; border-radius: 8px;
+        background: var(--chip-bg); color: var(--chip-text);
+        border: 1px dashed var(--border);
+      }
+
+      /* ========= ACTION BUTTONS ========= */
+      .actions {
+        display: flex; flex-wrap: wrap; justify-content: center;
+        gap: 10px; margin: 4px 0 8px;
+      }
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 9px 14px; border-radius: 999px;
+        background: var(--card); color: var(--text);
+        border: 1px solid var(--border);
+        font-weight: 600; font-size: 14px;
+        transition: transform .12s ease, box-shadow .12s ease, color .12s ease, border-color .12s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow);
+        color: var(--link);
+        border-color: var(--link);
+        text-decoration: none;
+      }
+      .btn[aria-disabled="true"] {
+        opacity: 0.55; cursor: not-allowed; pointer-events: none;
+      }
+      .btn .ico { width: 16px; height: 16px; flex: 0 0 16px; }
+
+      /* ========= TEASER ========= */
+      .teaser {
+        margin: 28px auto 8px;
+        max-width: 720px;
+        padding: 28px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--card);
+        box-shadow: var(--shadow);
+        text-align: center;
+      }
+      .teaser .logo-wrap {
+        width: 100%;
+        margin: 0 auto 14px;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .teaser .logo-wrap img {
+        width: 100%; height: auto;
+        object-fit: contain;
+        border-radius: 12px;
+      }
+      [data-theme="dark"] .teaser .logo-wrap img {
+        filter: invert(1) hue-rotate(180deg);
+      }
+      .teaser .tagline {
+        font-size: 1.05rem;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      /* ========= SECTIONS ========= */
+      section { margin-top: 44px; }
+      h2 {
+        margin: 0 0 14px; font-size: 22px; letter-spacing: .2px;
+        border-bottom: 1px solid var(--border); padding-bottom: 8px;
+      }
+      .prose p { margin: 0 0 12px; }
+      .prose .muted { color: var(--muted); }
+      .c-wvm   { color: var(--c-wvm); }
+      .c-bench { color: var(--c-bench); }
+
+      /* ========= BIBTEX ========= */
+      .bibtex {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 18px;
+        font: 500 13px/1.6 JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace;
+        white-space: pre;
+        overflow-x: auto;
+        color: var(--text);
+      }
+
+      /* ========= FOOTER ========= */
+      footer {
+        margin-top: 40px; padding-top: 14px;
+        border-top: 1px solid var(--border);
+        color: var(--muted); text-align: center; font-size: 14px;
+      }
+      footer a { color: var(--muted); }
+      footer a:hover { color: var(--link); }
+
+      /* ========= RESPONSIVE ========= */
+      @media (max-width: 720px) {
+        .paper-title { font-size: 24px; }
+        .teaser { padding: 20px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="/">← Zhihao Wang</a>
+        <div class="topbar-right">
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">
+            <span class="dot" aria-hidden="true"></span>
+            <span id="theme-label">Theme</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Header -->
+      <section class="paper-header">
+        <h1 class="paper-title">World Value Models for Robotic Manipulation</h1>
+        <p class="paper-authors authors"><strong>Zh1hao Wang</strong>, Jianxiong Li, Yu Cui, Yuan Gao, Xianyuan Zhan, Junzhi Yu, Xiao Ma</p>
+        <p class="paper-affil">ByteDance Seed &nbsp;·&nbsp; Peking University &nbsp;·&nbsp; AIR, Tsinghua University</p>
+        <div class="paper-meta">
+          <span class="tag">preprint 2026</span>
+          <span class="tag">value model</span>
+          <span class="tag">world model</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="#" aria-disabled="true" title="Coming soon">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            arXiv
+          </a>
+          <a class="btn" href="#" aria-disabled="true" title="Coming soon">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+            Paper (PDF)
+          </a>
+          <a class="btn" href="https://github.com/255isWhite/WVM" target="_blank" rel="noopener noreferrer">
+            <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.16c-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .98-.31 3.2 1.18.93-.26 1.93-.39 2.92-.4.99.01 1.99.14 2.92.4 2.22-1.49 3.2-1.18 3.2-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.07.79 2.16v3.2c0 .31.21.68.8.56C20.21 21.38 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>
+            Code
+          </a>
+          <a class="btn" href="#bibtex">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            BibTeX
+          </a>
+        </div>
+      </section>
+
+      <!-- Teaser -->
+      <div class="teaser">
+        <div class="logo-wrap">
+          <img src="/images/wvm/wvm_teaser.svg" alt="World Value Model teaser" />
+        </div>
+        <p class="tagline">Coming soon. Stay tuned!</p>
+      </div>
+
+      <!-- Abstract -->
+      <section id="abstract">
+        <h2>Abstract</h2>
+        <div class="prose">
+          <p>Generalist value models play a pivotal role in scaling robotic policy learning from large-scale, mixed-quality data. Mathematically, accurate value estimation demands deep temporal understanding, requiring models to both ground the current belief using historical context and plan over future outcomes. However, most existing robotic value models are built on Vision-Language Model (VLM) backbones that are pretrained primarily on static or temporally sparse visual observations, lacking the requisite temporal modeling capabilities for value estimation. Unlike VLMs, world models naturally excel at temporal modeling and future planning, making them ideal foundations for learning generalizable value functions. Driven by this insight, we marry world models with value estimation to construct a new generalist robotic value model, <strong>World Value Model</strong> (<strong><span class="c-wvm">WVM</span></strong>), that offers accurate task progressions to assess data quality. On standard benchmarks, <span class="c-wvm">WVM</span> delivers state-of-the-art (SOTA) Value-Order Correlation (VOC) results. Complementing standard evaluation suites that contains only expert data, we further introduce <strong><span class="c-bench">Suboptimal-Value-Bench</span></strong>, a multi-embodiment benchmark consisting of 800 suboptimal trajectories with high-fidelity, human-labeled frame annotations. Our evaluations show that <span class="c-wvm">WVM</span> maintains its SOTA performance on <span class="c-bench">Suboptimal-Value-Bench</span>, establishing its robustness in handling both expert and suboptimal data. When deployed for policy learning, <span class="c-wvm">WVM</span> improves manipulation performance across various policy extraction approaches in both simulated and real-world deployment, providing robust guidance for learning from mixed-quality data.</p>
+        </div>
+      </section>
+
+      <!-- BibTeX -->
+      <section id="bibtex">
+        <h2>BibTeX</h2>
+        <pre class="bibtex">@article{wang2026wvm,
+  title   = {World Value Models for Robotic Manipulation},
+  author  = {Wang, Zhihao and Li, Jianxiong and Cui, Yu and Gao, Yuan
+             and Zhan, Xianyuan and Yu, Junzhi and Ma, Xiao},
+  journal = {Preprint},
+  year    = {2026}
+}</pre>
+      </section>
+
+      <footer>
+        <p>© <span id="year"></span> Zhihao Wang · <a href="/">Back to homepage</a></p>
+      </footer>
+    </main>
+
+    <!-- Theme toggle (matches main site behavior) -->
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const stored = localStorage.getItem("theme");
+        if (stored === "light" || stored === "dark") {
+          root.setAttribute("data-theme", stored);
+        }
+        const btn = document.getElementById("theme-toggle");
+        const label = document.getElementById("theme-label");
+        function syncLabel() {
+          const t = root.getAttribute("data-theme") || "dark";
+          label.textContent = t === "dark" ? "Dark" : "Light";
+        }
+        syncLabel();
+        btn.addEventListener("click", () => {
+          const cur = root.getAttribute("data-theme") || "dark";
+          const next = cur === "dark" ? "light" : "dark";
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+          syncLabel();
+        });
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
+</html>

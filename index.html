@@ -18,8 +18,8 @@
     <link rel="shortcut icon" href="./images/favicon_pku/favicon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="stylesheet.css" />
-    <script src="utils.js" defer></script>
+    <link rel="stylesheet" href="assets/stylesheet.css" />
+    <script src="assets/utils.js" defer></script>
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://zh1hao.wang/" /> <meta property="og:title" content="Zhihao Wang - Embodied AI Researcher" />
     <meta property="og:description" content="Master's student at PKU, Intern at AIR Tsinghua. Focusing on Embodied Intelligence, RL, and VLA." />
@@ -459,6 +459,21 @@
         font-weight: bold;
       }
 
+      /* WVM logo: 深色主题下反转颜色，使黑色文字变白可见 */
+      .wvm-logo {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain !important;
+      }
+
+      /* 深色主题下对特定图片做颜色翻转 */
+      [data-theme="dark"] .wvm-logo,
+      [data-theme="dark"] .invert-on-dark {
+        filter: invert(1) hue-rotate(180deg);
+      }
+
       /* 研究兴趣关键词的艺术字效果 */
       .keyword {
         font-weight: 800;
@@ -631,6 +646,27 @@
 
         <div class="projects">
 
+          <!-- WVM -->
+          <article class="project">
+            <div class="thumb">
+              <img src="images/wvm/logo.svg" alt="WVM logo" class="wvm-logo" />
+              <div class="overlay" aria-hidden="true">
+              </div>
+            </div>
+            <div>
+              <h3 class="papertitle">World Value Models for Robotic Manipulation</h3>
+              <p class="authors"><strong>Zh1hao Wang</strong>, Jianxiong Li, Yu Cui, Yuan Gao, Xianyuan Zhan, Junzhi Yu, Xiao Ma</p>
+              <div class="meta">
+                <span class="tag">Preprint 2026</span>
+              </div>
+              <div class="links-row">
+                <a href="#" rel="noopener noreferrer">project page</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">arXiv</a>
+              </div>
+              <p class="desc">Coming soon. Stay tuned!</p>
+            </div>
+          </article>
+
           <!-- DIPOLE -->
           <article class="project">
             <div class="thumb">
@@ -677,9 +713,9 @@
           <!-- PhysiAgent -->
           <article class="project">
             <div class="thumb">
-              <img src="images/agent/logo.png" alt="PhysiAgent logo" />
+              <img src="images/agent/logo.png" alt="PhysiAgent logo" class="invert-on-dark" />
               <div class="overlay" aria-hidden="true">
-                <video class="lazy" muted autoplay loop playsinline>
+                <video class="lazy invert-on-dark" muted autoplay loop playsinline>
                   <source data-src="images/agent/logo.mp4" type="video/mp4" />
                 </video>
               </div>

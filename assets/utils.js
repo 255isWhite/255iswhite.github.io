@@ -20,6 +20,10 @@ const authorLinks = {
   "Kexin Zheng": "https://github.com/Whiterrrrr",
   "Tianyi Tan": "https://github.com/0ttwhy4",
   "Liyuan Mao": "https://scholar.google.com/citations?user=Xa2pDisAAAAJ&hl=en",
+  "Yuan Gao": "https://github.com/songgaogy",
+
+  "Yu Cui": "https://scholar.google.com/citations?user=BVqclaAAAAAJ&hl=en",
+  "Xiao Ma": "https://yusufma03.github.io/",
 
   "Junzhi Yu": "https://scholar.google.com/citations?user=Gudfky4AAAAJ&hl=zh-CN",
   "Zhanhua Xin": "https://ieeexplore.ieee.org/author/37089550574",
