@@ -12,7 +12,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zhihao Wang</title>
+    <title>Zhihao Wang (王志豪)</title>
     <meta name="description" content="Zhihao (Zh1hao) Wang — Embodied Intelligence, RL, VLA, Embodied Agents." />
     <meta name="author" content="Zhihao (Zh1hao) Wang" />
     <link rel="shortcut icon" href="./images/favicon_pku/favicon.ico" type="image/x-icon" />
@@ -22,11 +22,11 @@
     <link rel="stylesheet" href="assets/stylesheet.css" />
     <script src="assets/utils.js" defer></script>
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://zh1hao.wang/" /> <meta property="og:title" content="Zhihao Wang - Embodied AI Researcher" />
+    <meta property="og:url" content="https://zh1hao.wang/" /> <meta property="og:title" content="Zhihao Wang (王志豪) - Embodied AI Researcher" />
     <meta property="og:description" content="Master's student at PKU, Intern at AIR Tsinghua. Focusing on Embodied Intelligence, RL, and VLA." />
     <meta property="og:image" content="https://zh1hao.wang/images/me_v4.png" /> <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://zh1hao.wang/" />
-    <meta property="twitter:title" content="Zhihao Wang" />
+    <meta property="twitter:title" content="Zhihao Wang (王志豪)" />
     <meta property="twitter:description" content="Research in Embodied AI, RL, and VLA." />
     <meta property="twitter:image" content="https://zh1hao.wang/images/me_v4.png" />
     <style>
@@ -147,6 +147,20 @@
         background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--border);
         font-weight: 600;
       }
+      .misc-list {
+        list-style: disc inside;
+        padding-left: 0;
+        margin: 0;
+      }
+      .flush-list {
+        list-style: disc inside;
+        padding-left: 0;
+        margin: 0;
+      }
+      .flush-list li { margin: 6px 0; }
+      .misc-list li {
+        margin: 6px 0;
+      }
       .portrait { aspect-ratio: 1 / 1; overflow: hidden; border-radius: 16px; box-shadow: var(--shadow); 
                     /* 1. 设置相对定位，以便内部的绝对定位图片能以此为基准 */
                   position: relative;
@@ -199,12 +213,30 @@
           pointer-events: none;
       }
 
-      .portrait-wrap:hover .portrait-caption {
+      .portrait:hover + .portrait-caption {
           opacity: 1;
+      }
+
+      .portrait-subcaption {
+          margin: 8px 0 0;
+          text-align: center;
+          font-size: 12px;
+          color: #b5b5b5;
+          letter-spacing: 0.3px;
+      }
+      .portrait-subcaption a {
+          color: inherit;
+          text-decoration: none;
+          border-bottom: 1px dashed #b5b5b5;
+      }
+      .portrait-subcaption a:hover {
+          color: var(--text);
+          border-bottom-color: var(--text);
       }
 
       /* ========= SECTIONS ========= */
       section { margin-top: 40px; }
+      section *:last-child { margin-bottom: 0; }
       h2 {
         margin: 0 0 14px; font-size: 22px; letter-spacing: .2px;
         border-bottom: 1px solid var(--border); padding-bottom: 8px;
@@ -522,7 +554,7 @@
     <!-- Top bar -->
     <div class="topbar">
       <div class="topbar-inner">
-        <div class="brand">Zhihao Wang</div>
+        <div class="brand">Zhihao Wang (王志豪)</div>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme" type="button">
           <span class="dot" aria-hidden="true"></span>
           <span id="theme-label" style="font-weight:600">Light Mode</span>
@@ -563,8 +595,9 @@
             <a class="chip" href="images/cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
             <a class="chip" href="mailto:zh1haowang@stu.pku.edu.cn">Email</a>
             <a class="chip" href="https://github.com/255isWhite" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a class="chip" href="https://www.linkedin.com/in/zhihao-wang-5b6322280/" target="_blank" rel="noopener noreferrer">Linkedin</a>
             <a class="chip" href="https://www.xiaohongshu.com/user/profile/63f74fbf000000001001cc98" target="_blank" rel="noopener noreferrer">RedNote</a>
+            <a class="chip" href="https://www.linkedin.com/in/zhihao-wang-5b6322280/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="chip" href="https://www.instagram.com/zh1haowang/" target="_blank" rel="noopener noreferrer">Instagram</a>
             <a class="chip" href="https://huggingface.co/255isWhite" target="_blank" rel="noopener noreferrer">HuggingFace</a>
             <a class="chip" href="https://scholar.google.com/citations?hl=zh-CN&user=R-DSH0kAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>
           </div>
@@ -576,6 +609,7 @@
               <img src="images/ghibli_v6.jpg" alt="Hover Image" class="hover-image" width="880" height="872" loading="lazy" decoding="async" />
           </div>
           <p class="portrait-caption">Generated by Grok</p>
+          <p class="portrait-subcaption"><a href="#misc">Beyond academics and research...</a></p>
         </div>
       </section>
 
@@ -883,28 +917,38 @@
         </p>
       </section>
 
-      <!-- AWARDS & SERVICE -->
+      <!-- AWARDS -->
       <section id="honors">
-        <div class="grid-2--auto-left">
-          <div>
-            <h2>Awards & Achievements</h2>
-            <ul>
-              <li>[2025] Peking University Graduate Student Special Academic Scholarship</li>
-              <li>[2024] 1st at AIR Summer 2024 Projects Competition</li>
-              <li>[2024] Shandong Outstanding Graduates</li>
-              <li>[2023] Undergraduate National Scholarship</li>
-              <li>[2023] Huawei Intelligent Foundation Scholarship</li>
-              <li>[2022] 1st at Formula Student Autonomous China Competition</li>
-            </ul>
-          </div>
-          <div>
-            <h2>Academic Service</h2>
-            <ul>
-              <li>Reviewer at conferences: NeurIPS 2026, ICLR 2026, AAAI 2026</li>
-              <li>Reviewer at workshops: EWM@NeurIPS 2025, WRL@ICLR 2025</li>
-            </ul>
-          </div>
-        </div>
+        <h2>Awards & Achievements</h2>
+        <ul class="flush-list">
+          <li>[2025] Peking University Graduate Student Special Academic Scholarship</li>
+          <li>[2024] 1st at AIR Summer 2024 Projects Competition</li>
+          <li>[2024] Shandong Outstanding Graduates</li>
+          <li>[2023] Undergraduate National Scholarship</li>
+          <li>[2023] Huawei Intelligent Foundation Scholarship</li>
+          <li>[2022] 1st at Formula Student Autonomous China Competition</li>
+        </ul>
+      </section>
+
+      <!-- ACADEMIC SERVICE -->
+      <section id="service">
+        <h2>Academic Service</h2>
+        <ul class="flush-list">
+          <li>Reviewer at conferences: AAAI 2026, CoRL 2026, ICLR 2026, NeurIPS 2026</li>
+          <li>Reviewer at workshops: EWM@NeurIPS 2025, WRL@ICLR 2025</li>
+        </ul>
+      </section>
+
+      <!-- MISC -->
+      <section id="misc">
+        <h2>Misc</h2>
+        <p>Outside of research, I also enjoy:</p>
+        <ul class="misc-list">
+          <li>🎬 Movies: My favorite genres are <strong>sci-fi</strong>, <strong>horror</strong>, and <strong>thriller</strong>. My go-to theater is <strong>Beijing Zhongguancun Perfect World &amp; IMAX</strong>.</li>
+          <li>🎵 Music: I mostly listen to <strong>R&amp;B</strong> and <strong>K-POP</strong>. My favorite artists are <strong>Khalil Fong (方大同)</strong>, <strong>宇多田ヒカル (Hikaru Utada)</strong>, <strong>EXO</strong>, and <strong>BTS</strong>.</li>
+          <li>🚴 Cycling: My current ride is a <strong>CAMP RADON</strong>, my daily commuter and weekend companion around Beijing.</li>
+          <li>🐱 Cat: I'd love to have a kitten of my own someday!</li>
+        </ul>
       </section>
 
       <footer>
