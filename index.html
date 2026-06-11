@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&text=%E7%8E%8B%E5%BF%97%E8%B1%AA&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/stylesheet.css" />
     <script src="assets/utils.js" defer></script>
     <meta property="og:type" content="website" />
@@ -97,6 +98,13 @@
         gap: 12px;
       }
       .brand { font-weight: 700; letter-spacing: .2px; }
+      .brand-cn {
+        font-family: 'Zhi Mang Xing', cursive;
+        font-weight: 400;
+        font-size: 1.25em;
+        margin-left: 4px;
+        vertical-align: -0.05em;
+      }
       .theme-toggle {
         display: inline-flex; align-items: center; gap: 8px;
         padding: 6px 10px; border-radius: 999px;
@@ -554,7 +562,7 @@
     <!-- Top bar -->
     <div class="topbar">
       <div class="topbar-inner">
-        <div class="brand">Zhihao Wang (王志豪)</div>
+        <div class="brand">Zhihao Wang <span class="brand-cn">王志豪</span></div>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme" type="button">
           <span class="dot" aria-hidden="true"></span>
           <span id="theme-label" style="font-weight:600">Light Mode</span>
