@@ -415,26 +415,26 @@
         .portrait-wrap { max-width: 320px; margin: 0 auto; }
         .portrait { max-width: 320px; margin: 0 auto; }
 
-        /* --- 新增部分：移动端强制显示吉卜力图 --- */
-        
-        /* 1. 隐藏真实的默认照片 */
+        /* --- 移动端只显示真人照片（不切换吉卜力图） --- */
+
+        /* 1. 始终显示真实的默认照片 */
         .portrait .default-image {
-          opacity: 0 !important; 
-        }
-        
-        /* 2. 显示吉卜力风格图 */
-        .portrait .hover-image {
           opacity: 1 !important;
         }
-        
-        /* 3. 可选：取消移动端的手型光标，暗示不可点击 */
+
+        /* 2. 隐藏吉卜力风格图 */
+        .portrait .hover-image {
+          opacity: 0 !important;
+        }
+
+        /* 3. 取消移动端的手型光标，暗示不可点击 */
         .portrait {
           cursor: default;
         }
 
-        /* 4. 移动端始终显示图片说明 */
+        /* 4. 隐藏吉卜力图的说明文字（移动端显示真人照片） */
         .portrait-caption {
-          opacity: 1 !important;
+          opacity: 0 !important;
         }
       }
       /* @media (max-width: 720px) {
