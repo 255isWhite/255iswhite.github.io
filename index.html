@@ -70,6 +70,7 @@
 
       /* ========= GLOBAL ========= */
       html, body {
+        margin: 0;
         background: var(--bg);
         color: var(--text);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -147,9 +148,25 @@
       /* ========= HEADER ========= */
       .topbar {
         position: sticky; top: 0; z-index: 1000;
+        background: transparent;
+        border-bottom: none;
+      }
+      /* 背景 + 模糊放在伪元素上，并向下渐隐，避免导航栏形成突兀的硬边矩形。
+         伪元素向下延伸一段并用遮罩淡出，正文文字不受影响。 */
+      .topbar::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 -22px 0;
+        z-index: -1;
+        pointer-events: none;
         backdrop-filter: saturate(1.2) blur(8px);
-        background: color-mix(in oklab, var(--bg) 85%, transparent);
-        border-bottom: 1px solid var(--border);
+        -webkit-backdrop-filter: saturate(1.2) blur(8px);
+        background: linear-gradient(to bottom,
+          color-mix(in oklab, var(--bg) 88%, transparent),
+          color-mix(in oklab, var(--bg) 72%, transparent) calc(100% - 22px),
+          transparent);
+        -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent);
+        mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent);
       }
       .topbar-inner {
         max-width: 980px; margin: 0 auto; padding: 10px 20px;
@@ -963,7 +980,7 @@
                 <span class="tag">Preprint 2026</span>
               </div>
               <div class="links-row">
-                <a href="#" rel="noopener noreferrer">project page</a>
+                <a href="/projects/wvm/" rel="noopener noreferrer">project page</a>
                 <a href="https://arxiv.org/" target="_blank" rel="noopener noreferrer">arXiv</a>
               </div>
               <p class="desc">Marrying world models with value estimation.</p>

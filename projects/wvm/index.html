@@ -119,9 +119,25 @@ permalink: /wvm/
       /* ========= TOPBAR ========= */
       .topbar {
         position: sticky; top: 0; z-index: 1000;
+        background: transparent;
+        border-bottom: none;
+      }
+      /* 背景 + 模糊放在伪元素上，并向下渐隐，避免导航栏形成突兀的硬边矩形。
+         伪元素向下延伸一段并用遮罩淡出，正文文字不受影响。 */
+      .topbar::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 -22px 0;
+        z-index: -1;
+        pointer-events: none;
         backdrop-filter: saturate(1.2) blur(8px);
-        background: color-mix(in oklab, var(--bg) 85%, transparent);
-        border-bottom: 1px solid var(--border);
+        -webkit-backdrop-filter: saturate(1.2) blur(8px);
+        background: linear-gradient(to bottom,
+          color-mix(in oklab, var(--bg) 88%, transparent),
+          color-mix(in oklab, var(--bg) 72%, transparent) calc(100% - 22px),
+          transparent);
+        -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent);
+        mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent);
       }
       .topbar-inner {
         max-width: 980px; margin: 0 auto; padding: 10px 20px;
@@ -472,6 +488,62 @@ permalink: /wvm/
         .wvm-bg .neb i, .wvm-bg .wvm-stars i { animation: none; }
       }
 
+      /* World Value Model 方框内的循环箭头：为左右两条蓝色填充箭头各克隆一份
+         覆盖层，覆盖层填充指向一个 5 段 stop 的「亮带」<linearGradient>，亮带
+         在垂直方向滑过箭头 bbox。两条覆盖层共享同一个 dur（用 keyTimes 三段值
+         实现「先半段动 / 后半段静」与「先半段静 / 后半段动」的接力），从而
+         左半（深蓝色 #007BB8 ribbon）先 top→bottom，紧接右半（浅蓝色 #0099E5
+         tipped arrow）bottom→top，形成一条单一连续的脉冲（不会同时出现两条
+         平行光）。视觉风格与 arch 图中 multi-modal self-attention 的柔和流光
+         保持一致。
+         深色主题下整幅 SVG 已被 invert(1) hue-rotate(180deg) 反相，这里对脉冲
+         克隆再叠一次同样的滤镜以抵消，使白色亮带在两种主题下视觉一致；
+         注意：不使用 mix-blend-mode，因为 filter 会把白色先反相为黑色，再做
+         screen 混合时就成了无效叠加；直接半透明覆盖在深浅主题下都能正确
+         显示为「亮带扫过」。 */
+      .wvm-arrow-pulse {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .9s ease;
+      }
+      .fig-stage.is-done .wvm-arrow-pulse { opacity: 1; }
+      [data-theme="dark"] .fig-host svg .wvm-arrow-pulse {
+        filter: invert(1) hue-rotate(180deg);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .wvm-arrow-pulse { display: none; }
+      }
+
+      /* 脉冲走到「开头 / 中点 / 结尾」时，让对应的数学标签短暂"消失再出现"。
+         实现方式：直接给 wrapper <g> 做 opacity 1 → 0 → 1 的线性插值，与背景
+         天然融合，因此 Label 1/3（顶部白底）和 Label 2（蓝色方框内）都无需
+         分别配色——透明 0 就是和任何背景一致。
+         三个标签共用同一周期 --wvm-pulse-dur（=脉冲 cycleDur，由 JS 写入），
+         单次闪烁约占 28% 的周期（cycleDur × 0.28），峰值（完全透明）分别
+         落在 14% / 50% / 86%，对应脉冲贴近左上、抵达底部、抵达右上箭尖。
+         窗口是按周期百分比写的，所以 cycleDur 翻倍时闪烁时长会等比例翻倍。
+         首尾两峰刻意避开 0% / 100% 边界，让 1s 的窗口完整地落在周期里，
+         渐隐和渐显左右对称，看起来更像"被脉冲卷走又重新拼回来"。 */
+      @keyframes wvm-label-flash-start {
+        0%, 28%, 100% { opacity: 1; }
+        14%           { opacity: 0; }
+      }
+      @keyframes wvm-label-flash-middle {
+        0%, 36%, 64%, 100% { opacity: 1; }
+        50%                 { opacity: 0; }
+      }
+      @keyframes wvm-label-flash-end {
+        0%, 72%, 100% { opacity: 1; }
+        86%           { opacity: 0; }
+      }
+      .wvm-label-flash { pointer-events: none; }
+      .fig-stage.is-done .wvm-flash-start  { animation: wvm-label-flash-start  var(--wvm-pulse-dur, 3.6s) linear infinite; }
+      .fig-stage.is-done .wvm-flash-middle { animation: wvm-label-flash-middle var(--wvm-pulse-dur, 3.6s) linear infinite; }
+      .fig-stage.is-done .wvm-flash-end    { animation: wvm-label-flash-end    var(--wvm-pulse-dur, 3.6s) linear infinite; }
+      @media (prefers-reduced-motion: reduce) {
+        .wvm-label-flash { animation: none !important; }
+      }
+
       /* ========= SECTIONS ========= */
       section { margin-top: 44px; }
       h2 {
@@ -525,7 +597,7 @@ permalink: /wvm/
       }
       .fig-caption {
         margin: 12px auto 0;
-        max-width: 760px;
+        max-width: 900px;
         text-align: center;
         font-size: 0.9rem;
         line-height: 1.6;
@@ -607,6 +679,8 @@ permalink: /wvm/
       }
       /* 多图章节中每张「图 + 题注」之间留白 */
       .exp-item + .exp-item { margin-top: 30px; }
+      /* 让「题注 → 下方按钮」的间距与「方框 → 题注」的 12px 对称 */
+      .exp-item + .video-details { margin-top: 12px; }
       /* 反相型图（architecture / experiments）：深色下整幅矢量反相融入深空主题
          （白底已透明，露出卡片深色而非纯黑）。真实机器人视角的位图（<image>）
          再反相一次抵消，保持原色不被反转。 */
@@ -1023,7 +1097,7 @@ permalink: /wvm/
             </noscript>
           </div>
         </div>
-        <p class="fig-caption"><strong>Architecture of <span class="c-wvm">WVM</span>.</strong> A video world model backbone is augmented with a parallel value branch that shares multi-modal self-attention, producing per-chunk value estimates conditioned on the task instruction and prefix frames.</p>
+        <p class="fig-caption"><strong>Architecture of <span class="c-wvm">WVM</span>.</strong> A video DiT is coupled with a lightweight value DiT through a Mixture-of-Transformers (MoT) architecture. The values are formulated as a chunk of value flow, with value prefix randomization applied during training.</p>
       </section>
 
       <section id="benchmark">
@@ -1035,7 +1109,7 @@ permalink: /wvm/
             </noscript>
           </div>
         </div>
-        <p class="fig-caption"><strong><span class="c-bench">Suboptimal-Value-Bench</span>.</strong> A multi-embodiment benchmark of 800 fully human-verified trajectories spanning 3 embodiments and 15 tasks in both simulation and the real world, capturing suboptimal behaviors such as hesitation and retry whose value dynamics standard expert-only suites overlook.</p>
+        <p class="fig-caption"><strong><span class="c-bench">Suboptimal-Value-Bench</span>.</strong> A multi-embodiment benchmark of 800 fully human-verified trajectories spanning 15 tasks across both simulation and the real world. By featuring two prevalent suboptimal behavioral modes&mdash;retries and hesitations&mdash;it enables a comprehensive evaluation of generalist value models that extends far beyond the scope of existing metrics.</p>
       </section>
 
       <section id="value-estimation">
@@ -1043,11 +1117,11 @@ permalink: /wvm/
 
         <div class="exp-item">
           <div class="arch-figure">
-            <div class="arch-host" id="eye-host" role="img" aria-label="Value estimation comparison across methods">
+            <div class="arch-host fig-invert" id="eye-host" role="img" aria-label="Value estimation comparison across methods">
               <noscript><img src="/projects/wvm/eye_comparison.svg" alt="Value estimation comparison across methods" /></noscript>
             </div>
           </div>
-          <p class="fig-caption"><strong>Qualitative value estimation.</strong> Predicted value trajectories for hesitation, retry, and expert rollouts. <span class="c-wvm">WVM</span> produces monotonic, well-calibrated progressions that faithfully reflect suboptimal behaviors, where prior methods plateau or fluctuate.</p>
+          <p class="fig-caption"><strong>Qualitative value estimation.</strong> <span class="c-wvm">WVM</span> more faithfully reflects the temporal dynamics of hesitation, retry, and expert trajectories.</p>
         </div>
 
         <details class="video-details" id="quant-details">
@@ -1199,11 +1273,11 @@ permalink: /wvm/
 
         <div class="exp-item">
           <div class="arch-figure">
-            <div class="arch-host" id="setup-host" role="img" aria-label="Task suite and embodiments">
+            <div class="arch-host fig-invert" id="setup-host" role="img" aria-label="Task suite and embodiments">
               <noscript><img src="/projects/wvm/setup.svg" alt="Task suite and embodiments" /></noscript>
             </div>
           </div>
-          <p class="fig-caption"><strong>Task suite.</strong> Representative tasks across simulation and real-world embodiments used in our evaluations.</p>
+          <p class="fig-caption"><strong>Task setups.</strong> Downstream policy learning experiments are conducted across both simulation and the real world.</p>
         </div>
 
         <div class="exp-item">
@@ -1212,18 +1286,18 @@ permalink: /wvm/
               <noscript><img src="/projects/wvm/policy_results.svg" alt="Policy success rate results" /></noscript>
             </div>
           </div>
-          <p class="fig-caption"><strong>Policy learning.</strong> Success rates in the RoboSuite simulator and real-world AgileX deployment. Using <span class="c-wvm">WVM</span> for data filtering and weighting consistently improves manipulation performance over baselines learning from mixed-quality data.</p>
+          <p class="fig-caption"><strong>Policy improvement.</strong> <span class="c-wvm">WVM</span> boosts downstream policy learning with both Advantage-Weighted Regression (AWR) and Filtered BC.</p>
         </div>
       </section>
 
       <section id="takeaway">
-        <h2>Takeaway</h2>
+        <h2>What Matters?</h2>
         <div class="arch-figure">
           <div class="arch-host fig-invert" id="takeaway-host" role="img" aria-label="Ablation study takeaway">
             <noscript><img src="/projects/wvm/takeaway.svg" alt="Ablation study takeaway" /></noscript>
           </div>
         </div>
-        <p class="fig-caption"><strong>World models matter.</strong> Ablations over video DiT variants, prefix randomization, and the value head show that the world-model backbone is the key driver of accurate value estimation.</p>
+        <p class="fig-caption"><strong>World models matter.</strong> Ablations over video DiT variants, prefix randomization, and value head designs.</p>
       </section>
 
       <section id="bibtex">
@@ -1599,6 +1673,241 @@ permalink: /wvm/
             if (sc) sc.style.display = "none";
           });
 
+        // 在 World Value Model 方框内的两条循环箭头上叠加「单条连续脉冲」。
+        // 视觉风格：与第一版一致 —— 在箭头蓝色填充之上叠一份同形状的克隆，克隆
+        // 填充指向一个 5 段 stop 的纵向「亮带」<linearGradient>，亮带柔和地穿过
+        // 蓝色填充区域；与 arch 图中 multi-modal self-attention 的流光质感保持
+        // 一致。
+        //
+        // 关键区别于第一版：第一版两条克隆同时 bottom→top 上扫，在底部并行出现
+        // 两条光柱；本版按 bbox.x 排序识别左半（小 cx，深蓝 ribbon）与右半
+        // （大 cx，浅蓝 tipped arrow），并用 keyTimes="0;0.5;1" 把动画拆成
+        // 「先动后停 / 先停后动」两半 —— 左半在 0~T/2 内 top→bottom，右半在
+        // T/2~T 内 bottom→top —— 共享同一个 dur 无缝接力，呈现「左上 → 底部 →
+        // 右上箭尖」的单一连续脉冲。
+        function addBoxArrowPulse(svg) {
+          if (!svg || svg.querySelector(".wvm-arrow-pulse")) return;
+          const SVGNS = "http://www.w3.org/2000/svg";
+          const norm = (s) => (s || "").toUpperCase().replace(/\s/g, "");
+          const isBlue = (col) => {
+            const c = norm(col);
+            return c === "#0099E5" || c === "#007BB8" ||
+                   c.indexOf("0099E5") !== -1 || c.indexOf("007BB8") !== -1;
+          };
+          const paths = Array.from(svg.querySelectorAll("path")).filter(
+            (p) => !p.closest("defs")
+          );
+          // 1) 定位 WVM 大方框：大尺寸的半透明蓝色 path
+          const box = paths.find((p) => {
+            if (!isBlue(p.getAttribute("fill"))) return false;
+            const op = parseFloat(p.getAttribute("fill-opacity") || "1");
+            if (op > 0.7 || op < 0.3) return false;
+            try {
+              const b = p.getBBox();
+              return b.width > 800 && b.height > 500;
+            } catch (e) { return false; }
+          });
+          if (!box) return;
+          let bbox;
+          try { bbox = box.getBBox(); } catch (e) { return; }
+          // 2) 筛出方框内、含曲线、非描边的蓝色填充路径 = 循环箭头
+          const arrows = paths.filter((p) => {
+            if (p === box) return false;
+            if (!isBlue(p.getAttribute("fill"))) return false;
+            const stroke = p.getAttribute("stroke") || "";
+            if (stroke && stroke !== "none") return false;
+            const d = p.getAttribute("d") || "";
+            if (!/[csqta]/i.test(d)) return false;
+            let b;
+            try { b = p.getBBox(); } catch (e) { return false; }
+            if (b.width <= 0 || b.height <= 0) return false;
+            const cx = b.x + b.width / 2;
+            const cy = b.y + b.height / 2;
+            if (cx < bbox.x || cx > bbox.x + bbox.width) return false;
+            if (cy < bbox.y || cy > bbox.y + bbox.height) return false;
+            return Math.max(b.width, b.height) > 200;
+          });
+          if (!arrows.length) return;
+
+          // 3) 按 bbox 中心 x 排序：小 cx = 左半（深蓝 ribbon），大 cx = 右半
+          // （浅蓝带箭尖的 arrow）。
+          arrows.forEach((p) => {
+            try { p.__bb = p.getBBox(); } catch (e) { p.__bb = null; }
+          });
+          const usable = arrows.filter((p) => p.__bb && p.__bb.width > 0 && p.__bb.height > 0);
+          if (!usable.length) return;
+          usable.sort((a, b) => (a.__bb.x + a.__bb.width / 2) - (b.__bb.x + b.__bb.width / 2));
+
+          let defs = svg.querySelector("defs");
+          if (!defs) {
+            defs = document.createElementNS(SVGNS, "defs");
+            svg.insertBefore(defs, svg.firstChild);
+          }
+
+          // 整条脉冲一个完整循环的时长：两段各占一半，左半 top→bottom 之后
+          // 紧接右半 bottom→top。同步把秒数写到 CSS 变量上，让标签 CSS 闪烁
+          // 动画 (.wvm-flash-*) 自动匹配相同的 dur，不用手动两边对齐。
+          // 标签的闪烁窗口在 keyframes 里是按周期百分比写的（±14% ≈ 全周期的
+          // 28%），所以这里改 cycleDur，单次闪烁时长会等比例地被拉伸/压缩。
+          const cycleDur = 7.2; // seconds
+          const host = svg.closest(".fig-host") || svg;
+          host.style.setProperty("--wvm-pulse-dur", cycleDur + "s");
+
+          // 为一条循环箭头创建一份脉冲覆盖层。isLeftHalf=true 时亮带在 0~T/2 内
+          // top→bottom 滑下；isLeftHalf=false 时亮带在 T/2~T 内 bottom→top 滑上。
+          // 两条覆盖层共享同一个 dur，因此左右接力呈现单一连续脉冲。
+          function createPulse(arrow, isLeftHalf, idx) {
+            const ab = arrow.__bb;
+            const cx = ab.x + ab.width / 2;
+            const yTop = ab.y;
+            const yBot = ab.y + ab.height;
+            const stripe = Math.max(80, ab.height * 0.32);
+
+            const gid = "wvm-pulse-grad-" + idx;
+            const grad = document.createElementNS(SVGNS, "linearGradient");
+            grad.setAttribute("id", gid);
+            grad.setAttribute("gradientUnits", "userSpaceOnUse");
+            grad.setAttribute("x1", cx);
+            grad.setAttribute("x2", cx);
+
+            // 5 段 stop = 中间一道半透明白亮带，两侧透明，柔和地穿过蓝色填充
+            [
+              [0,    "rgba(255,255,255,0)"],
+              [0.35, "rgba(255,255,255,0)"],
+              [0.5,  "rgba(255,255,255,0.95)"],
+              [0.65, "rgba(255,255,255,0)"],
+              [1,    "rgba(255,255,255,0)"],
+            ].forEach(([off, col]) => {
+              const s = document.createElementNS(SVGNS, "stop");
+              s.setAttribute("offset", off);
+              s.setAttribute("stop-color", col);
+              grad.appendChild(s);
+            });
+
+            // 渐变线方向：y1 > y2，亮带中点 = (y1+y2)/2。同步移动 (y1,y2) 就能
+            // 让中点上下滑动。
+            // 三段关键帧 keyTimes="0;0.5;1" 实现「半动半停」接力：
+            //   左半（top→bottom）：中点 yTop-s/2 -> yBot+s/2 -> 保持
+            //     y1: yTop        -> yBot+s    -> yBot+s
+            //     y2: yTop-s      -> yBot      -> yBot
+            //   右半（bottom→top）：中点 yBot+s/2 -> 保持 -> yTop-s/2
+            //     y1: yBot+s      -> yBot+s    -> yTop
+            //     y2: yBot        -> yBot      -> yTop-s
+            let y1_vals, y2_vals, y1_init, y2_init;
+            if (isLeftHalf) {
+              y1_init = yTop;          y2_init = yTop - stripe;
+              y1_vals = yTop + ";" + (yBot + stripe) + ";" + (yBot + stripe);
+              y2_vals = (yTop - stripe) + ";" + yBot + ";" + yBot;
+            } else {
+              y1_init = yBot + stripe; y2_init = yBot;
+              y1_vals = (yBot + stripe) + ";" + (yBot + stripe) + ";" + yTop;
+              y2_vals = yBot + ";" + yBot + ";" + (yTop - stripe);
+            }
+            grad.setAttribute("y1", y1_init);
+            grad.setAttribute("y2", y2_init);
+
+            [
+              ["y1", y1_vals],
+              ["y2", y2_vals],
+            ].forEach(([attr, vals]) => {
+              const a = document.createElementNS(SVGNS, "animate");
+              a.setAttribute("attributeName", attr);
+              a.setAttribute("values", vals);
+              a.setAttribute("keyTimes", "0;0.5;1");
+              a.setAttribute("dur", cycleDur + "s");
+              a.setAttribute("repeatCount", "indefinite");
+              // 用 begin="indefinite" 把 SMIL 起点交给 JS 控制，apply() 监测到
+              // is-done 刚切到 true 时统一 beginElement()，从而和 CSS 标签闪烁
+              // 动画一起从 0 起跑，保持脉冲位置与标签闪烁时刻完全同步。
+              a.setAttribute("begin", "indefinite");
+              grad.appendChild(a);
+            });
+            defs.appendChild(grad);
+
+            // 克隆箭头形状作为脉冲覆盖层，填充指向上面的动画渐变
+            const clone = arrow.cloneNode(false);
+            clone.removeAttribute("fill-opacity");
+            clone.removeAttribute("stroke");
+            clone.removeAttribute("stroke-width");
+            clone.removeAttribute("style"); // 清掉 apply(0) 给原图设置的 opacity:0
+            clone.setAttribute("fill", "url(#" + gid + ")");
+            clone.setAttribute("class", "wvm-arrow-pulse");
+            clone.style.pointerEvents = "none";
+            arrow.parentNode.insertBefore(clone, arrow.nextSibling);
+          }
+
+          // 左半 (cx 最小) 先 top→bottom
+          createPulse(usable[0], true, 0);
+          // 右半 (cx 最大) 紧接着 bottom→top
+          if (usable.length >= 2) {
+            createPulse(usable[usable.length - 1], false, 1);
+          }
+        }
+
+        // 把 WVM 方框内三段数学标签（开头 O_{t-h+1:t} / 中点 Ô_{t+1:t+h} /
+        // 结尾 V_{t-h+1:t}）按位置归到 wrapper <g class="wvm-flash-X"> 里，
+        // 让外层 CSS keyframes 在脉冲周期的对应相位把整个 wrapper 的 opacity
+        // 从 1 平滑插值到 0 再回到 1，制造"消失 → 再现"的闪烁效果。
+        //
+        // 用 opacity（而不是改 fill 颜色）有两个好处：
+        //   1. 透明本身就和任何底色一致——Label 1/3 顶部是白底、Label 2 在
+        //      半透明蓝方框里，opacity:0 都直接与之融合，不必为两种背景分别
+        //      配色。
+        //   2. wrapper 上的 opacity 与每个字形自身 style.opacity（buildup 阶段
+        //      用来从 0 渐显到 1）是相乘的关系：buildup 期间 wrapper=1 不影响
+        //      渐入；buildup 完成 (is-done) 后字形 opacity 恒为 1，wrapper 周
+        //      期性地 1→0→1，从而准确地呈现闪烁。
+        //
+        // 三个标签的"主字符"都是 <text>，但中点 Ô 的小帽子 ෠ 在 PDF 导出后是
+        // 单独的 <path>，所以这里同时把 text 和 path 一起作为候选；用
+        // fill-opacity=0 过滤掉只为可访问性而保留的隐藏文本。
+        //
+        // 位置阈值（x0..x1, y0..y1）从 teaser SVG 的 transform="matrix(...)"
+        // 实测得到，与箭头 path 共用同一局部坐标系（外层 <g translate(-320 -1132)>
+        // 之内）。
+        function addLabelFlashes(svg) {
+          if (!svg || svg.dataset.wvmFlashed) return;
+          const SVGNS = "http://www.w3.org/2000/svg";
+          const els = Array.from(svg.querySelectorAll("text, path")).filter(
+            (e) => !e.closest("defs")
+          );
+          if (!els.length) return;
+
+          function getXY(el) {
+            const t = el.getAttribute("transform") || "";
+            const m = t.match(/matrix\(([^)]+)\)/);
+            if (!m) return null;
+            const parts = m[1].trim().split(/[\s,]+/).map(parseFloat);
+            if (parts.length < 6 || !isFinite(parts[4]) || !isFinite(parts[5])) return null;
+            return { x: parts[4], y: parts[5] };
+          }
+
+          const labels = [
+            { cls: "wvm-flash-start",  x0: 1340, x1: 1640, y0: 1200, y1: 1240 },
+            { cls: "wvm-flash-middle", x0: 1810, x1: 2110, y0: 1880, y1: 1935 },
+            { cls: "wvm-flash-end",    x0: 2320, x1: 2620, y0: 1200, y1: 1240 },
+          ];
+
+          labels.forEach((lab) => {
+            const members = els.filter((e) => {
+              if (e.getAttribute("fill-opacity") === "0") return false;
+              const p = getXY(e);
+              if (!p) return false;
+              return p.x >= lab.x0 && p.x <= lab.x1 &&
+                     p.y >= lab.y0 && p.y <= lab.y1;
+            });
+            if (!members.length) return;
+            // 在第一个成员所在位置插入 wrapper，再把全部成员 reparent 进去；
+            // 文本节点引用不变，apply() 仍能正常逐个调透明度。
+            const wrap = document.createElementNS(SVGNS, "g");
+            wrap.setAttribute("class", "wvm-label-flash " + lab.cls);
+            const first = members[0];
+            first.parentNode.insertBefore(wrap, first);
+            members.forEach((m) => wrap.appendChild(m));
+          });
+          svg.dataset.wvmFlashed = "1";
+        }
+
         function setup(svg) {
           // 选取所有可绘制叶子元素作为动画单元（排除 <defs> 内的模板元素）
           const nodes = Array.from(svg.querySelectorAll("path, image, use, text")).filter(
@@ -1794,9 +2103,19 @@ permalink: /wvm/
             }
             if (bar) bar.style.width = (p * 100).toFixed(1) + "%";
             stage.classList.toggle("is-live", p > 0.001 && p < 0.985);
-            stage.classList.toggle("is-done", p >= 0.985);
+            const nowDone = p >= 0.985;
+            stage.classList.toggle("is-done", nowDone);
+            // 装配刚完成的那一刻：让 SMIL 脉冲（begin="indefinite"）和 CSS 标签
+            // 闪烁动画同时起跑，从而脉冲位置和标签闪烁时刻完全对齐；只触发一次。
+            if (nowDone && !pulseStarted) {
+              pulseStarted = true;
+              svg.querySelectorAll("animate").forEach((a) => {
+                try { a.beginElement(); } catch (e) {}
+              });
+            }
           }
 
+          let pulseStarted = false;
           measure();
 
           if (reduce) {
@@ -1817,6 +2136,13 @@ permalink: /wvm/
 
           // 初始隐藏，等进入视口后用时间轴自动从左到右逐步装配
           apply(0);
+          // 装配完成后会出现在视图中的「WVM 方框循环箭头脉冲」覆盖层
+          // 由 CSS 控制只在 .fig-stage.is-done 时透明度淡入；SMIL 用
+          // begin="indefinite"，由 apply() 在 is-done 那一刻统一启动
+          addBoxArrowPulse(svg);
+          // 三个数学标签的闪烁分组：用 wrapper <g> 包裹各自的字形 <text>，
+          // CSS keyframes 在脉冲周期对应相位处给出 drop-shadow 辉光
+          addLabelFlashes(svg);
           let played = false;
           const DURATION = 2300; // ms
 
