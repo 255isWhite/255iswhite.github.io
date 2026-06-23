@@ -77,11 +77,9 @@
         line-height: 1.6;
         letter-spacing: 0.1px;
       }
-      /* 科幻深空背景：双色径向辉光 + 细网格，营造纵深与 HUD 质感 */
+      /* 科幻深空背景：底色 + 顶部淡渐变（辉光交给动态星云层 .wvm-bg） */
       [data-theme="dark"] body {
         background:
-          radial-gradient(900px 500px at 12% -8%, color-mix(in oklab, var(--glow) 16%, transparent) 0%, transparent 60%),
-          radial-gradient(800px 480px at 95% 0%, color-mix(in oklab, var(--glow-2) 14%, transparent) 0%, transparent 55%),
           linear-gradient(to bottom, color-mix(in oklab, var(--glow) 4%, transparent), transparent 40%),
           var(--bg);
         background-attachment: fixed;
@@ -98,8 +96,44 @@
         background-size: 44px 44px;
         -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 70%);
         mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 70%);
-        opacity: .5;
+        opacity: .4;
       }
+
+      /* ========= 深空科幻背景：星云辉光 + 星点 + 神经星座网络 ========= */
+      .wvm-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+      [data-theme="light"] .wvm-bg { display: none; }
+      .wvm-bg .neb { position: absolute; inset: -25%; filter: blur(70px) saturate(1.15); }
+      .wvm-bg .neb i { position: absolute; border-radius: 50%; mix-blend-mode: screen; opacity: .45; }
+      .wvm-bg .neb .n1 {
+        width: 58vw; height: 58vw; left: -6%; top: -14%;
+        background: radial-gradient(circle, color-mix(in oklab, var(--glow) 72%, transparent), transparent 65%);
+        animation: neb-drift-1 30s ease-in-out infinite alternate;
+      }
+      .wvm-bg .neb .n2 {
+        width: 52vw; height: 52vw; right: -10%; top: -8%;
+        background: radial-gradient(circle, color-mix(in oklab, var(--glow-2) 72%, transparent), transparent 65%);
+        animation: neb-drift-2 38s ease-in-out infinite alternate;
+      }
+      .wvm-bg .neb .n3 {
+        width: 48vw; height: 48vw; left: 32%; top: 8%;
+        background: radial-gradient(circle, color-mix(in oklab, #27e0c4 55%, transparent), transparent 65%);
+        opacity: .32;
+        animation: neb-drift-3 46s ease-in-out infinite alternate;
+      }
+      @keyframes neb-drift-1 { from { transform: translate3d(-4%, -2%, 0) scale(1);    } to { transform: translate3d(6%, 5%, 0) scale(1.15);  } }
+      @keyframes neb-drift-2 { from { transform: translate3d(3%, -3%, 0) scale(1.1);   } to { transform: translate3d(-5%, 6%, 0) scale(.95);  } }
+      @keyframes neb-drift-3 { from { transform: translate3d(-3%, 3%, 0) scale(1);     } to { transform: translate3d(4%, -5%, 0) scale(1.2);  } }
+      .wvm-bg .wvm-stars i {
+        position: absolute; border-radius: 50%;
+        background: #cfe8ff; box-shadow: 0 0 6px #7df0ff;
+        animation: wvm-twinkle var(--tw, 4s) ease-in-out var(--td, 0s) infinite;
+      }
+      @keyframes wvm-twinkle { 0%,100% { opacity: .15; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.3); } }
+      .wvm-bg #wvm-bg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+      @media (prefers-reduced-motion: reduce) {
+        .wvm-bg .neb i, .wvm-bg .wvm-stars i { animation: none; }
+      }
+
       [data-theme="dark"] .container { position: relative; z-index: 1; }
       a { color: var(--link); text-decoration: none; }
       a:hover { color: var(--link-hover); text-decoration: underline; }
@@ -210,6 +244,16 @@
                   position: relative;
                   /* 2. 确保容器能够捕获到鼠标事件 */
                   cursor: pointer;}
+
+      /* 透明抠图肖像：浅色模式保留卡片底色与边框；深色模式去框/去阴影，主体直接融入深色背景 */
+      [data-theme="light"] .portrait {
+        background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+      }
+      [data-theme="dark"] .portrait {
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+      }
 
       /* --- 图片切换样式 --- */
       .portrait img {
@@ -690,6 +734,70 @@
         .caret { animation: none; }
       }
 
+      /* --- F. Misc 点击高亮：动态圆角矩形包围框 --- */
+      @property --misc-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
+      #misc { position: relative; }
+      #misc.misc-spotlight {
+        border-radius: 16px;
+        animation: misc-pulse 1.6s ease-in-out 3;
+      }
+      /* 旋转流光描边 */
+      #misc.misc-spotlight::before {
+        content: "";
+        position: absolute;
+        inset: -16px;
+        border-radius: 20px;
+        padding: 2px;
+        background: conic-gradient(
+          from var(--misc-angle),
+          transparent 0deg,
+          color-mix(in oklab, var(--link) 90%, #22d3ee) 60deg,
+          #22d3ee 110deg,
+          transparent 180deg,
+          transparent 360deg
+        );
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        mask-composite: exclude;
+        animation: misc-rotate 1.4s linear infinite, misc-spotlight-fade 5s ease forwards;
+        pointer-events: none;
+        z-index: 2;
+      }
+      /* 柔和静态描边，衬托流光 */
+      #misc.misc-spotlight::after {
+        content: "";
+        position: absolute;
+        inset: -16px;
+        border-radius: 20px;
+        border: 1.5px solid color-mix(in oklab, var(--link) 45%, transparent);
+        box-shadow: 0 0 0 1px color-mix(in oklab, var(--link) 12%, transparent);
+        animation: misc-spotlight-fade 5s ease forwards;
+        pointer-events: none;
+        z-index: 1;
+      }
+      @keyframes misc-rotate {
+        to { --misc-angle: 360deg; }
+      }
+      @keyframes misc-pulse {
+        0%, 100% { box-shadow: 0 0 0 0 transparent; }
+        50% { box-shadow: 0 0 32px color-mix(in oklab, var(--link) 22%, transparent); }
+      }
+      @keyframes misc-spotlight-fade {
+        0% { opacity: 0; }
+        12% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #misc.misc-spotlight::before { animation: misc-spotlight-fade 5s ease forwards; }
+        #misc.misc-spotlight { animation: none; }
+      }
+
     </style>
 
     <script>
@@ -702,6 +810,12 @@
   </head>
 
   <body>
+    <div class="wvm-bg" aria-hidden="true">
+      <div class="neb"><i class="n1"></i><i class="n2"></i><i class="n3"></i></div>
+      <div class="wvm-stars" id="wvm-stars"></div>
+      <canvas id="wvm-bg-canvas"></canvas>
+    </div>
+
     <!-- Top bar -->
     <div class="topbar">
       <div class="topbar-inner">
@@ -743,7 +857,7 @@
 
           <div class="links" aria-label="Quick links">
             <a class="chip" href="https://x.com/255isWhite" target="_blank" rel="noopener noreferrer">X</a>
-            <a class="chip" href="images/cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+            <a class="chip" href="images/cv.html" target="_blank" rel="noopener noreferrer">CV</a>
             <a class="chip" href="mailto:zh1haowang@stu.pku.edu.cn">Email</a>
             <a class="chip" href="https://github.com/255isWhite" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a class="chip" href="https://www.xiaohongshu.com/user/profile/63f74fbf000000001001cc98" target="_blank" rel="noopener noreferrer">RedNote</a>
@@ -756,8 +870,8 @@
 
         <div class="portrait-wrap">
           <div class="portrait">
-              <img src="images/me_v4_880.jpg" alt="Portrait of Zh1hao Wang" class="default-image" width="880" height="872" fetchpriority="high" decoding="async" />
-              <img src="images/ghibli_v6.jpg" alt="Hover Image" class="hover-image" width="880" height="872" loading="lazy" decoding="async" />
+              <img src="images/me_v5.png" alt="Portrait of Zh1hao Wang" class="default-image" width="1086" height="1448" fetchpriority="high" decoding="async" />
+              <img src="images/ghibli_v5.jpg" alt="Hover Image" class="hover-image" width="880" height="872" loading="lazy" decoding="async" />
           </div>
           <p class="portrait-caption">Generated by Grok</p>
           <p class="portrait-subcaption"><a href="#misc">Beyond academics and research...</a></p>
@@ -768,6 +882,8 @@
       <section id="news">
         <h2>News</h2>
         <ul class="news" id="news-list">
+          <li>06/2026: Excited to release <strong>World Value Models</strong>!</li>
+          <li>04/2026: One paper has been accepted by <strong>ICML 2026</strong>!</li>
           <li>01/2026: <strong>X-VLA</strong> and <strong>DIPOLE</strong> have been accepted by <strong>ICLR 2026</strong>!</li>
           <li>10/2025: X-VLA won the <strong>🏆 Championship</strong> at <strong>AgiBot World Challenge @ IROS 2025</strong>!</li>
           <li>05/2025: Our paper <strong>LBP (Latent space Backward Planning)</strong> has been accepted by <strong>ICML 2025</strong>!</li>
@@ -833,8 +949,7 @@
 
         <div class="projects">
 
-          <!-- WVM (hidden for now) -->
-          <!--
+          <!-- WVM -->
           <article class="project">
             <div class="thumb">
               <img src="images/wvm/logo.svg" alt="WVM logo" class="wvm-logo" />
@@ -849,12 +964,31 @@
               </div>
               <div class="links-row">
                 <a href="#" rel="noopener noreferrer">project page</a>
-                <a href="#" target="_blank" rel="noopener noreferrer">arXiv</a>
+                <a href="https://arxiv.org/" target="_blank" rel="noopener noreferrer">arXiv</a>
               </div>
-              <p class="desc">Coming soon. Stay tuned!</p>
+              <p class="desc">Marrying world models with value estimation.</p>
             </div>
           </article>
-          -->
+
+          <!-- Empirical (Action Space Design) -->
+          <article class="project">
+            <div class="thumb">
+              <img src="images/empirical/logo.png" alt="Empirical project cover" />
+              <div class="overlay" aria-hidden="true"></div>
+            </div>
+            <div>
+              <h3 class="papertitle">Demystifying Action Space Design for Robotic Manipulation Policies</h3>
+              <p class="authors">Yuchun Feng<sup>*</sup>, Jinliang Zheng<sup>*</sup>, <strong>Zh1hao Wang</strong>, Dongxiu Liu, Jianxiong Li, Jiangmiao Pang, Tai Wang, Xianyuan Zhan</p>
+              <div class="meta">
+                <span class="tag">🏆 Best Paper @ ES-Reasoning @ ICLR 2026 Workshop</span>
+                <span class="tag">ICML 2026</span>
+              </div>
+              <div class="links-row">
+                <a href="https://arxiv.org/abs/2602.23408" target="_blank" rel="noopener noreferrer">arXiv</a>
+              </div>
+              <p class="desc">A large-scale empirical study dissecting how <b>action space design</b> shapes policy learnability and control stability.</p>
+            </div>
+          </article>
 
           <!-- DIPOLE -->
           <article class="project">
@@ -1265,11 +1399,24 @@
     </script>
 
     <script>
-      // ===== 滚动入场动画：section 进入视口时淡入上移 =====
+      // ===== 滚动入场动画：进入视口时淡入上移 =====
       document.addEventListener("DOMContentLoaded", function () {
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const targets = document.querySelectorAll("main.container > section:not(.hero)");
         if (reduce || !("IntersectionObserver" in window)) return;
+
+        const sections = document.querySelectorAll("main.container > section:not(.hero)");
+        const targets = [];
+
+        sections.forEach(function (section) {
+          // Research 章节：每个工作作为最小入场单元，标题/简介/脚注各自单独入场
+          if (section.id === "research") {
+            section.querySelectorAll(":scope > h2, :scope > p, :scope > .projects > .project").forEach(function (el) {
+              targets.push(el);
+            });
+          } else {
+            targets.push(section);
+          }
+        });
 
         targets.forEach(function (el) { el.classList.add("reveal"); });
 
@@ -1284,6 +1431,137 @@
 
         targets.forEach(function (el) { io.observe(el); });
       });
+    </script>
+
+    <script>
+      // ===== 点击 "Beyond academics and research..." 跳转 Misc 并触发高亮包围框 =====
+      document.addEventListener("DOMContentLoaded", function () {
+        const miscLink = document.querySelector('.portrait-subcaption a[href="#misc"]');
+        const misc = document.getElementById("misc");
+        if (!miscLink || !misc) return;
+
+        let hideTimer = null;
+
+        miscLink.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          // 平滑滚动到 Misc 章节
+          misc.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          // 重置动画以便重复点击时能再次触发
+          misc.classList.remove("misc-spotlight");
+          void misc.offsetWidth; // 强制回流，重启 CSS 动画
+          misc.classList.add("misc-spotlight");
+
+          // 动画结束后移除高亮，保证正常滚动不会出现特效
+          if (hideTimer) clearTimeout(hideTimer);
+          hideTimer = window.setTimeout(function () {
+            misc.classList.remove("misc-spotlight");
+          }, 5000);
+        });
+      });
+    </script>
+
+    <!-- 深空背景：星点 + 神经星座网络 -->
+    <script>
+      (function () {
+        const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const root = document.documentElement;
+
+        const starHost = document.getElementById("wvm-stars");
+        if (starHost && !starHost.childElementCount) {
+          const frag = document.createDocumentFragment();
+          const n = Math.min(Math.round((innerWidth * innerHeight) / 16000), 110);
+          for (let i = 0; i < n; i++) {
+            const s = (Math.random() * 1.8 + 0.8).toFixed(2);
+            const el = document.createElement("i");
+            el.style.cssText =
+              "left:" + (Math.random() * 100).toFixed(2) + "%;" +
+              "top:" + (Math.random() * 100).toFixed(2) + "%;" +
+              "width:" + s + "px;height:" + s + "px;" +
+              "--tw:" + (Math.random() * 4 + 2.5).toFixed(1) + "s;" +
+              "--td:" + (Math.random() * 5).toFixed(1) + "s;";
+            frag.appendChild(el);
+          }
+          starHost.appendChild(frag);
+        }
+
+        const canvas = document.getElementById("wvm-bg-canvas");
+        if (!canvas || reduce) return;
+        const ctx = canvas.getContext("2d");
+
+        let W, H, DPR, parts = [], raf = null, running = false;
+        const mouse = { x: -9999, y: -9999 };
+
+        function resize() {
+          DPR = Math.min(window.devicePixelRatio || 1, 2);
+          W = canvas.width = Math.floor(innerWidth * DPR);
+          H = canvas.height = Math.floor(innerHeight * DPR);
+        }
+        function initParticles() {
+          const count = Math.min(Math.round((innerWidth * innerHeight) / 15000), 130);
+          parts = Array.from({ length: count }, () => ({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.22 * DPR,
+            vy: (Math.random() - 0.5) * 0.22 * DPR,
+            r: (Math.random() * 1.5 + 0.6) * DPR
+          }));
+        }
+        function frame() {
+          ctx.clearRect(0, 0, W, H);
+          const link = 130 * DPR, pull = 150 * DPR;
+          for (const p of parts) {
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > W) p.vx *= -1;
+            if (p.y < 0 || p.y > H) p.vy *= -1;
+            const dx = p.x - mouse.x, dy = p.y - mouse.y, d = Math.hypot(dx, dy);
+            if (d < pull && d > 0.01) { p.x += (dx / d) * 0.5 * DPR; p.y += (dy / d) * 0.5 * DPR; }
+          }
+          for (let i = 0; i < parts.length; i++) {
+            for (let j = i + 1; j < parts.length; j++) {
+              const a = parts[i], b = parts[j];
+              const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+              if (d < link) {
+                const t = 1 - d / link;
+                ctx.strokeStyle = "rgba(27,211,255," + (t * 0.32).toFixed(3) + ")";
+                ctx.lineWidth = DPR * 0.6;
+                ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+              }
+            }
+          }
+          ctx.shadowColor = "rgba(27,211,255,.9)";
+          ctx.shadowBlur = 7 * DPR;
+          ctx.fillStyle = "rgba(125,240,255,.85)";
+          for (const p of parts) {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill();
+          }
+          ctx.shadowBlur = 0;
+          raf = requestAnimationFrame(frame);
+        }
+        function start() {
+          if (running) return;
+          running = true; resize(); initParticles(); frame();
+        }
+        function stop() {
+          running = false;
+          if (raf) { cancelAnimationFrame(raf); raf = null; }
+          if (ctx && W) ctx.clearRect(0, 0, W, H);
+        }
+        function isDark() { return (root.getAttribute("data-theme") || "dark") !== "light"; }
+        function sync() { (isDark() && !document.hidden) ? start() : stop(); }
+
+        let rt;
+        window.addEventListener("resize", () => {
+          clearTimeout(rt);
+          rt = setTimeout(() => { if (running) { resize(); initParticles(); } }, 200);
+        });
+        window.addEventListener("mousemove", (e) => { mouse.x = e.clientX * DPR; mouse.y = e.clientY * DPR; }, { passive: true });
+        window.addEventListener("mouseout", () => { mouse.x = mouse.y = -9999; });
+        document.addEventListener("visibilitychange", sync);
+        new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+
+        sync();
+      })();
     </script>
 
   </body>
