@@ -40,28 +40,7 @@
   <script>
     (function () {
       var label = document.getElementById("last-modified");
-      function setDate(text) {
-        label.textContent = "Last modified: " + text;
-      }
-      fetch("cv.pdf", { method: "HEAD", cache: "no-store" })
-        .then(function (res) {
-          var lm = res.headers.get("Last-Modified");
-          if (lm) {
-            var d = new Date(lm);
-            if (!isNaN(d.getTime())) {
-              setDate(d.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric"
-              }));
-              return;
-            }
-          }
-          setDate("unknown");
-        })
-        .catch(function () {
-          setDate("unknown");
-        });
+      label.textContent = "Last modified: Nov 1, 2025";
     })();
   </script>
 </body>
